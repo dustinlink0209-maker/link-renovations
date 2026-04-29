@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Link Renovations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0a; color: #fff; font-family: 'Open Sans', sans-serif; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; background: linear-gradient(to right, #fff 20%, #0d0d0d 54%); border-bottom: 3px solid #b01020; display: flex; align-items: stretch; }
+    .nav-logo { padding: 0 32px; display: flex; align-items: center; flex-shrink: 0; text-decoration: none; }
+    .nav-logo img { height: 50px; display: block; }
+    .nav-links { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 32px; padding: 0 40px; }
+    .nav-links a { color: #bbb; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links .cta { background: #b01020; color: #fff; padding: 10px 22px; }
+    .nav-links .cta:hover { background: #8f0d19; color: #fff; }
+
+    .page-header { padding-top: 74px; height: 320px; position: relative; display: flex; align-items: flex-end; }
+    .page-header-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen1.jpg') center/cover; }
+    .page-header-content { position: relative; z-index: 1; padding: 0 80px 56px; }
+    .page-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 12px; }
+    .page-title { font-family: 'Montserrat', sans-serif; font-size: 52px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+
+    .section-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 14px; }
+    .section-title { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
+    .section-rule { width: 44px; height: 3px; background: #b01020; margin: 18px 0 28px; }
+
+    /* Contact grid */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; min-height: 720px; }
+
+    /* Left: Info */
+    .contact-info { background: #b01020; padding: 90px 70px; display: flex; flex-direction: column; justify-content: center; }
+    .contact-info .section-tag { color: #ffd1d6; }
+    .contact-info .section-rule { background: #fff; }
+    .contact-info p.intro { font-size: 14px; color: #ffe3e6; line-height: 1.85; margin-bottom: 50px; max-width: 380px; }
+    .info-item { margin-bottom: 32px; }
+    .info-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+    .info-value { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 600; color: #fff; text-decoration: none; display: block; }
+    .info-value:hover { color: #ffe3e6; }
+    .info-value.lg { font-size: 26px; font-weight: 800; letter-spacing: 1px; }
+
+    .social-row { margin-top: 30px; display: flex; gap: 12px; }
+    .social-row a { width: 42px; height: 42px; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; font-family: 'Montserrat', sans-serif; transition: all 0.2s; }
+    .social-row a:hover { background: #fff; color: #b01020; border-color: #fff; }
+
+    /* Right: Form */
+    .contact-form-wrap { background: #0d0d0d; padding: 90px 80px; }
+    .contact-form-header { margin-bottom: 50px; }
+    .contact-form { display: flex; flex-direction: column; gap: 24px; max-width: 600px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-field { display: flex; flex-direction: column; }
+    .form-field label { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+    .form-field label .req { color: #b01020; }
+    .form-field input, .form-field select, .form-field textarea {
+      background: #1a1a1a; border: 1px solid #2a2a2a; color: #fff;
+      padding: 14px 16px; font-family: 'Open Sans', sans-serif; font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+      outline: none; border-color: #b01020; background: #161616;
+    }
+    .form-field textarea { resize: vertical; min-height: 140px; font-family: 'Open Sans', sans-serif; }
+    .submit-btn {
+      font-family: 'Montserrat', sans-serif; background: #b01020; color: #fff;
+      padding: 16px 40px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; border: none; cursor: pointer;
+      align-self: flex-start; margin-top: 12px; transition: background 0.2s;
+    }
+    .submit-btn:hover { background: #8f0d19; }
+    .form-note { font-size: 11px; color: #555; margin-top: 6px; }
+
+    /* Service area */
+    .service-area { background: #060606; padding: 80px 80px; text-align: center; }
+    .service-area h3 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+    .service-area p { color: #777; font-size: 14px; max-width: 700px; margin: 0 auto 30px; line-height: 1.85; }
+    .area-cities { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; max-width: 800px; margin: 0 auto; }
+    .city-chip { padding: 8px 18px; border: 1px solid #1e1e1e; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #888; }
+
+    footer { background: #060606; padding: 32px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #161616; }
+    .footer-logo img { height: 36px; background: #fff; padding: 3px 6px; display: block; }
+    .footer-copy { font-size: 11px; color: #333; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; }
+    .footer-social { display: flex; gap: 10px; }
+    .social { width: 34px; height: 34px; border: 1px solid #1e1e1e; display: flex; align-items: center; justify-content: center; color: #333; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Montserrat', sans-serif; }
+    .social:hover { border-color: #b01020; color: #b01020; }
+  
+.gallery-item img, .featured-item img, .step-image, .about-photo, .story-image, .nick-photo, .nick-card .nick-photo { filter: contrast(1.10) brightness(1.04) saturate(1.18); transition: filter 0.3s, transform 0.4s ease; }
+.gallery-item:hover img, .featured-item:hover img { filter: contrast(1.14) brightness(1.07) saturate(1.22); }
+.hero-bg, .page-header-bg, .cta-bg { filter: contrast(1.12) brightness(1.05) saturate(1.20); }
+.lightbox-img { filter: contrast(1.10) brightness(1.04) saturate(1.18); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="Link Renovations"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="about.html">About</a>
+    <a href="process.html">Our Process</a>
+    <a href="testimonials.html">Testimonials</a>
+    <a href="contact.html" class="cta active">Free Estimate</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-content">
+    <div class="page-tag">Get In Touch</div>
+    <div class="page-title">Free Estimate</div>
+  </div>
+</div>
+
+<div class="contact-grid">
+
+  <div class="contact-info">
+    <div class="section-tag">Contact</div>
+    <div class="section-title">Let's Talk About<br>Your Project.</div>
+    <div class="section-rule"></div>
+    <p class="intro">Free consultations, written quotes, and zero-pressure conversations. Reach out and Nick will be in touch within 24 hours.</p>
+
+    <div class="info-item">
+      <div class="info-label">Call or Text</div>
+      <a class="info-value lg" href="tel:5023772551">(502) 377-2551</a>
+    </div>
+
+    <div class="info-item">
+      <div class="info-label">Email</div>
+      <a class="info-value" href="mailto:nick@linkrenovations.com">nick@linkrenovations.com</a>
+    </div>
+
+    <div class="info-item">
+      <div class="info-label">Service Area</div>
+      <div class="info-value">Louisville, KY &amp; Surrounding</div>
+    </div>
+
+    <div class="info-item">
+      <div class="info-label">Connect On Social</div>
+      <div class="social-row">
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="Instagram">ig</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="Houzz">H</a>
+        <a href="#" title="Pinterest">P</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-wrap">
+    <div class="contact-form-header">
+      <div class="section-tag">Free Estimate</div>
+      <div class="section-title">Submit Your Project<br>Details Below.</div>
+      <div class="section-rule"></div>
+    </div>
+
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('Form submitted (mockup)');">
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" required>
+        </div>
+        <div class="form-field">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" required>
+        </div>
+        <div class="form-field">
+          <label>Phone</label>
+          <input type="tel">
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Project Type <span class="req">*</span></label>
+        <select required>
+          <option value="">Select a project type...</option>
+          <option>Bathroom Remodel</option>
+          <option>Kitchen Renovation</option>
+          <option>Custom Woodworking</option>
+          <option>Outdoor Living / Deck</option>
+          <option>Flooring</option>
+          <option>Commercial Project</option>
+          <option>Other / Multi-Room</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Tell Us About Your Project <span class="req">*</span></label>
+        <textarea required placeholder="Describe your vision, timeline, and any specific details..."></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit For Free Estimate →</button>
+      <div class="form-note">* Required fields. We'll respond within 24 hours.</div>
+    </form>
+  </div>
+
+</div>
+
+<div class="service-area">
+  <h3>Proudly Serving Louisville &amp; The Surrounding Area</h3>
+  <p>Link Renovations works with residential and commercial clients throughout the greater Louisville region.</p>
+  <div class="area-cities">
+    <div class="city-chip">Louisville</div>
+    <div class="city-chip">St. Matthews</div>
+    <div class="city-chip">Prospect</div>
+    <div class="city-chip">Anchorage</div>
+    <div class="city-chip">Crestwood</div>
+    <div class="city-chip">Middletown</div>
+    <div class="city-chip">Jeffersontown</div>
+    <div class="city-chip">Goshen</div>
+    <div class="city-chip">La Grange</div>
+    <div class="city-chip">Pewee Valley</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo"><img src="logo.png" alt="Link Renovations"></div>
+  <div class="footer-copy">© 2025 Link Renovations · Louisville, KY</div>
+  <div class="footer-social">
+    <a href="#" class="social">f</a>
+    <a href="#" class="social">ig</a>
+    <a href="#" class="social">in</a>
+    <a href="#" class="social">H</a>
+  </div>
+</footer>
+
+</body>
+</html>

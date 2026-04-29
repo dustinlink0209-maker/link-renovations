@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonials — Link Renovations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0a; color: #fff; font-family: 'Open Sans', sans-serif; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; background: linear-gradient(to right, #fff 20%, #0d0d0d 54%); border-bottom: 3px solid #b01020; display: flex; align-items: stretch; }
+    .nav-logo { padding: 0 32px; display: flex; align-items: center; flex-shrink: 0; text-decoration: none; }
+    .nav-logo img { height: 50px; display: block; }
+    .nav-links { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 32px; padding: 0 40px; }
+    .nav-links a { color: #bbb; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links .cta { background: #b01020; color: #fff; padding: 10px 22px; }
+    .nav-links .cta:hover { background: #8f0d19; color: #fff; }
+
+    .page-header { padding-top: 74px; height: 320px; position: relative; display: flex; align-items: flex-end; }
+    .page-header-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6097.jpg') center/cover; }
+    .page-header-content { position: relative; z-index: 1; padding: 0 80px 56px; }
+    .page-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 12px; }
+    .page-title { font-family: 'Montserrat', sans-serif; font-size: 52px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+
+    .section-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 14px; }
+    .section-title { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
+    .section-rule { width: 44px; height: 3px; background: #b01020; margin: 18px 0 28px; }
+
+    /* Featured testimonial */
+    .featured-quote { padding: 100px 80px; background: #0d0d0d; text-align: center; }
+    .featured-quote .quote-mark { font-size: 120px; color: #b01020; line-height: 0.6; font-family: Georgia, serif; display: block; margin-bottom: 30px; }
+    .featured-quote .quote-text { font-size: 24px; font-weight: 300; line-height: 1.6; color: #ddd; font-style: italic; max-width: 900px; margin: 0 auto; }
+    .featured-quote .quote-author { margin-top: 36px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
+    .featured-quote .stars { color: #b01020; letter-spacing: 4px; margin-bottom: 26px; font-size: 18px; }
+
+    /* All testimonials */
+    .testimonials-section { padding: 100px 80px; background: #060606; }
+    .testimonials-header { text-align: center; margin-bottom: 70px; }
+    .testimonials-header .section-rule { margin: 18px auto 0; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 1300px; margin: 0 auto; }
+    .testimonial-card { background: #111; padding: 40px 38px; border-top: 3px solid #b01020; display: flex; flex-direction: column; }
+    .testimonial-card .stars { color: #b01020; letter-spacing: 3px; margin-bottom: 18px; font-size: 13px; }
+    .testimonial-card .quote-text { font-size: 14px; line-height: 1.95; color: #aaa; font-style: italic; flex: 1; }
+    .testimonial-card .quote-text::before { content: '"'; color: #b01020; font-size: 36px; font-family: Georgia, serif; line-height: 0; vertical-align: -10px; margin-right: 6px; }
+    .testimonial-card .quote-author { margin-top: 26px; padding-top: 22px; border-top: 1px solid #1e1e1e; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
+    .testimonial-card .project { display: block; margin-top: 6px; font-size: 9px; letter-spacing: 2px; color: #b01020; font-weight: 700; }
+
+    /* Trust strip */
+    .trust { background: #b01020; padding: 50px 80px; text-align: center; }
+    .trust h3 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; max-width: 800px; margin: 0 auto; line-height: 1.5; }
+
+    /* CTA */
+    .cta-final { position: relative; min-height: 380px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)), url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6134.jpg') center/cover; }
+    .cta-content { position: relative; z-index: 1; padding: 0 40px; }
+    .cta-content h2 { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+    .cta-content p { color: #aaa; font-size: 15px; margin-bottom: 36px; font-weight: 300; }
+    .btn-red { font-family: 'Montserrat', sans-serif; background: #b01020; color: #fff; padding: 15px 36px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; display: inline-block; }
+    .phone-line { display: block; margin-top: 22px; font-family: 'Montserrat', sans-serif; font-size: 13px; color: #666; letter-spacing: 2px; text-decoration: none; }
+
+    footer { background: #060606; padding: 32px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #161616; }
+    .footer-logo img { height: 36px; background: #fff; padding: 3px 6px; display: block; }
+    .footer-copy { font-size: 11px; color: #333; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; }
+    .footer-social { display: flex; gap: 10px; }
+    .social { width: 34px; height: 34px; border: 1px solid #1e1e1e; display: flex; align-items: center; justify-content: center; color: #333; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Montserrat', sans-serif; }
+    .social:hover { border-color: #b01020; color: #b01020; }
+  
+.gallery-item img, .featured-item img, .step-image, .about-photo, .story-image, .nick-photo, .nick-card .nick-photo { filter: contrast(1.10) brightness(1.04) saturate(1.18); transition: filter 0.3s, transform 0.4s ease; }
+.gallery-item:hover img, .featured-item:hover img { filter: contrast(1.14) brightness(1.07) saturate(1.22); }
+.hero-bg, .page-header-bg, .cta-bg { filter: contrast(1.12) brightness(1.05) saturate(1.20); }
+.lightbox-img { filter: contrast(1.10) brightness(1.04) saturate(1.18); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="Link Renovations"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="about.html">About</a>
+    <a href="process.html">Our Process</a>
+    <a href="testimonials.html" class="active">Testimonials</a>
+    <a href="contact.html" class="cta">Free Estimate</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-content">
+    <div class="page-tag">In Their Words</div>
+    <div class="page-title">Testimonials</div>
+  </div>
+</div>
+
+<div class="featured-quote">
+  <div class="stars">★★★★★</div>
+  <span class="quote-mark">"</span>
+  <p class="quote-text">I can't say enough about Link Renovations. Completely exceeded my expectations. Nick held my hand through the entire process and even brought things to my attention that I never would have thought of. Start to finish in less than four weeks for an entire kitchen renovation. These guys do amazing work.</p>
+  <div class="quote-author">— Tricia Butler</div>
+</div>
+
+<div class="testimonials-section">
+  <div class="testimonials-header">
+    <div class="section-tag">Client Reviews</div>
+    <div class="section-title">What Our Clients Say</div>
+    <div class="section-rule"></div>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote-text">My husband and I used Link Renovations last fall to remodel our master bathroom. Nick did an amazing job. He is professional, a perfectionist, and works with the utmost integrity. I would highly recommend him to anyone. We love our new bathroom. Thanks."</p>
+      <div class="quote-author">— Carol Webb<span class="project">Master Bathroom Remodel</span></div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote-text">We hired Link Renovations to remodel our entire master bathroom. He brought good design ideas that we never thought of to maximize our space. Nick did an excellent job of communicating with us on all aspects of the job. He was very honest and hard working. After our bathroom was completed we decided to have Nick install new laminate flooring throughout our home. He did an amazing job on that as well!"</p>
+      <div class="quote-author">— Jeff and Tina Neathery<span class="project">Bathroom + Flooring</span></div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote-text">Link Renovations did a superior job on my bathroom remodel from start to finish. My house is an older home that needed structural reinforcement of the floor joists, sub floor repair, and had uneven walls. Nick was very knowledgeable and transformed my bathroom into a master piece. He is very conscientious and does top quality work."</p>
+      <div class="quote-author">— Brian Kruer<span class="project">Bathroom Remodel</span></div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote-text">Link Renovations did a wonderful job installing new marble tile into our master bathroom. Nick was very efficient and completed the project quickly. We would highly recommend his services."</p>
+      <div class="quote-author">— Charles and Fran Neathery<span class="project">Marble Tile Installation</span></div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote-text">We used Link Renovations to tile both our master and guest bathrooms and kitchen floor. He did an exceptional job, even adding a size altering design that we repeatedly get compliments on. His expertise and professionalism is unmatched. We'll be using him again in the near future. Thanks Nick for an amazing job!"</p>
+      <div class="quote-author">— Matt Shanahan<span class="project">Multi-Room Tile Project</span></div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote-text">We have enlisted Nick's help on several occasions and have never been disappointed. His professionalism, craftsmanship, and work ethic are second to none. We look forward to our next project with him!"</p>
+      <div class="quote-author">— David and Jill Gast<span class="project">Repeat Client</span></div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote-text">Link Renovations did an amazing job with our master bathroom remodel. Our bathroom is beyond beautiful! Nick is friendly, efficient, and very knowledgeable so we had a great experience working with him. We would highly recommend his services for anyone looking to do a renovation on their home."</p>
+      <div class="quote-author">— Mike and Julie Hook<span class="project">Master Bathroom Remodel</span></div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote-text">We used Link Renovations last fall when we renovated our house. My husband has used Nick on many previous projects and couldn't have been happier. He completely gutted our outdated, all white master bath and finished it with natural travertine stone that we love! The beautiful stripe that runs length of our bathroom and the shower cut out were designs that Nick suggested and they finish the space perfectly. I would not only recommend Link Renovations, but would give Nick complete creative license with my rehab project."</p>
+      <div class="quote-author">— Dustin and Allison Daniel<span class="project">Travertine Stone Bathroom</span></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="trust">
+  <h3>A Large Portion of Our Business Comes From<br>Repeat Clients & Referrals.</h3>
+</div>
+
+<div class="cta-final">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <h2>Want To Be Our Next<br>Five-Star Review?</h2>
+    <p>Let's start a conversation about your home.</p>
+    <a href="contact.html" class="btn-red">Get Your Free Estimate</a>
+    <a href="tel:5023772551" class="phone-line">(502) 377-2551</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo"><img src="logo.png" alt="Link Renovations"></div>
+  <div class="footer-copy">© 2025 Link Renovations · Louisville, KY</div>
+  <div class="footer-social">
+    <a href="#" class="social">f</a>
+    <a href="#" class="social">ig</a>
+    <a href="#" class="social">in</a>
+    <a href="#" class="social">H</a>
+  </div>
+</footer>
+
+</body>
+</html>

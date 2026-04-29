@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Process — Link Renovations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0a; color: #fff; font-family: 'Open Sans', sans-serif; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; background: linear-gradient(to right, #fff 20%, #0d0d0d 54%); border-bottom: 3px solid #b01020; display: flex; align-items: stretch; }
+    .nav-logo { padding: 0 32px; display: flex; align-items: center; flex-shrink: 0; text-decoration: none; }
+    .nav-logo img { height: 50px; display: block; }
+    .nav-links { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 32px; padding: 0 40px; }
+    .nav-links a { color: #bbb; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links .cta { background: #b01020; color: #fff; padding: 10px 22px; }
+    .nav-links .cta:hover { background: #8f0d19; color: #fff; }
+
+    .page-header { padding-top: 74px; height: 320px; position: relative; display: flex; align-items: flex-end; }
+    .page-header-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen3.jpg') center/cover; }
+    .page-header-content { position: relative; z-index: 1; padding: 0 80px 56px; }
+    .page-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 12px; }
+    .page-title { font-family: 'Montserrat', sans-serif; font-size: 52px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+
+    .section-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 14px; }
+    .section-title { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
+    .section-rule { width: 44px; height: 3px; background: #b01020; margin: 18px 0 28px; }
+
+    .intro-block { padding: 100px 80px 60px; background: #0d0d0d; max-width: 900px; }
+    .intro-block p { font-size: 16px; color: #999; line-height: 1.95; margin-top: 8px; max-width: 720px; }
+
+    /* Process steps */
+    .process { padding: 0 80px 100px; background: #0d0d0d; }
+    .step { display: grid; grid-template-columns: 140px 1fr 1fr; gap: 60px; padding: 60px 0; border-top: 1px solid #1a1a1a; align-items: center; }
+    .step:last-child { border-bottom: 1px solid #1a1a1a; }
+    .step-num { font-family: 'Montserrat', sans-serif; font-size: 96px; font-weight: 900; color: #b01020; opacity: 0.25; line-height: 1; }
+    .step-content h3 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+    .step-content p { font-size: 14px; color: #888; line-height: 1.95; }
+    .step-image { height: 240px; background-size: cover; background-position: center; border-left: 4px solid #b01020; }
+
+    /* Promise strip */
+    .promise { background: #b01020; padding: 70px 80px; text-align: center; }
+    .promise h2 { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; line-height: 1.4; max-width: 800px; margin: 0 auto; }
+    .promise h2 em { font-style: normal; opacity: 0.8; }
+
+    /* CTA */
+    .cta-final { position: relative; min-height: 380px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)), url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6098.jpg') center/cover; }
+    .cta-content { position: relative; z-index: 1; padding: 0 40px; }
+    .cta-content h2 { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+    .cta-content p { color: #aaa; font-size: 15px; margin-bottom: 36px; font-weight: 300; }
+    .btn-red { font-family: 'Montserrat', sans-serif; background: #b01020; color: #fff; padding: 15px 36px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; display: inline-block; }
+    .phone-line { display: block; margin-top: 22px; font-family: 'Montserrat', sans-serif; font-size: 13px; color: #666; letter-spacing: 2px; text-decoration: none; }
+
+    footer { background: #060606; padding: 32px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #161616; }
+    .footer-logo img { height: 36px; background: #fff; padding: 3px 6px; display: block; }
+    .footer-copy { font-size: 11px; color: #333; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; }
+    .footer-social { display: flex; gap: 10px; }
+    .social { width: 34px; height: 34px; border: 1px solid #1e1e1e; display: flex; align-items: center; justify-content: center; color: #333; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Montserrat', sans-serif; }
+    .social:hover { border-color: #b01020; color: #b01020; }
+  
+.gallery-item img, .featured-item img, .step-image, .about-photo, .story-image, .nick-photo, .nick-card .nick-photo { filter: contrast(1.10) brightness(1.04) saturate(1.18); transition: filter 0.3s, transform 0.4s ease; }
+.gallery-item:hover img, .featured-item:hover img { filter: contrast(1.14) brightness(1.07) saturate(1.22); }
+.hero-bg, .page-header-bg, .cta-bg { filter: contrast(1.12) brightness(1.05) saturate(1.20); }
+.lightbox-img { filter: contrast(1.10) brightness(1.04) saturate(1.18); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="Link Renovations"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="about.html">About</a>
+    <a href="process.html" class="active">Our Process</a>
+    <a href="testimonials.html">Testimonials</a>
+    <a href="contact.html" class="cta">Free Estimate</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-content">
+    <div class="page-tag">How We Work</div>
+    <div class="page-title">Our Process</div>
+  </div>
+</div>
+
+<div class="intro-block">
+  <div class="section-tag">From Concept To Completion</div>
+  <div class="section-title">Five Steps.<br>Zero Surprises.</div>
+  <div class="section-rule"></div>
+  <p>Every Link Renovations project follows the same proven process — designed to keep you informed, in control, and genuinely excited every step of the way. Here's how it works.</p>
+</div>
+
+<div class="process">
+
+  <div class="step">
+    <div class="step-num">01</div>
+    <div class="step-content">
+      <h3>Free Consultation</h3>
+      <p>We start with a no-obligation conversation about your space, your vision, and your goals. We listen, take measurements, and discuss what's possible — and what isn't.</p>
+    </div>
+    <div class="step-image" style="background-image:url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6135.jpg');"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">02</div>
+    <div class="step-content">
+      <h3>Design & Vision</h3>
+      <p>We work closely with you on design choices, materials, and layout. You'll get product recommendations and design options that maximize value for your dollar.</p>
+    </div>
+    <div class="step-image" style="background-image:url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen2.jpg');"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">03</div>
+    <div class="step-content">
+      <h3>Written Quote</h3>
+      <p>You receive a detailed written quote covering materials, installation, and labor — itemized, transparent, and aligned to your budget. No hidden fees, no surprise charges.</p>
+    </div>
+    <div class="step-image" style="background-image:url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6113.jpg');"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">04</div>
+    <div class="step-content">
+      <h3>Craftsmanship & Build</h3>
+      <p>We get to work — treating your home as if it were our own. Daily updates, clear communication, and obsessive attention to every detail throughout the build.</p>
+    </div>
+    <div class="step-image" style="background-image:url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6133.jpg');"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">05</div>
+    <div class="step-content">
+      <h3>The Reveal</h3>
+      <p>We complete every job in a timely manner, do a thorough walkthrough with you, and don't consider a project finished until it exceeds your expectations.</p>
+    </div>
+    <div class="step-image" style="background-image:url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6134.jpg');"></div>
+  </div>
+
+</div>
+
+<div class="promise">
+  <h2>"We treat your home as if we are working in our own."<br><em>— That's the Link Renovations promise.</em></h2>
+</div>
+
+<div class="cta-final">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <h2>Ready To Get Started?</h2>
+    <p>Schedule your free consultation today.</p>
+    <a href="contact.html" class="btn-red">Get Your Free Estimate</a>
+    <a href="tel:5023772551" class="phone-line">(502) 377-2551</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo"><img src="logo.png" alt="Link Renovations"></div>
+  <div class="footer-copy">© 2025 Link Renovations · Louisville, KY</div>
+  <div class="footer-social">
+    <a href="#" class="social">f</a>
+    <a href="#" class="social">ig</a>
+    <a href="#" class="social">in</a>
+    <a href="#" class="social">H</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Link Renovations</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; color: #fff; font-family: 'Open Sans', sans-serif; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; background: linear-gradient(to right, #fff 20%, #0d0d0d 54%); border-bottom: 3px solid #b01020; display: flex; align-items: stretch; }
+.nav-logo { padding: 0 32px; display: flex; align-items: center; flex-shrink: 0; text-decoration: none; }
+.nav-logo img { height: 50px; display: block; }
+.nav-links { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 32px; padding: 0 40px; }
+.nav-links a { color: #bbb; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
+.nav-links a:hover, .nav-links a.active { color: #fff; }
+.nav-links .cta { background: #b01020; color: #fff; padding: 10px 22px; }
+.page-header { padding-top: 74px; height: 280px; position: relative; display: flex; align-items: flex-end; }
+.page-header-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6134.jpg') center/cover; }
+.page-header-content { position: relative; z-index: 1; padding: 0 80px 48px; }
+.page-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 10px; }
+.page-title { font-family: 'Montserrat', sans-serif; font-size: 48px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+.filter-bar { background: #111; border-bottom: 1px solid #1e1e1e; padding: 0 80px; display: flex; gap: 0; overflow-x: auto; position: sticky; top: 74px; z-index: 100; }
+.filter-btn { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #555; padding: 18px 24px; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.filter-btn:hover { color: #ccc; }
+.filter-btn.active { color: #fff; border-bottom-color: #b01020; }
+.filter-btn .cnt { color: #444; font-size: 9px; margin-left: 6px; }
+.gallery-wrap { padding: 60px 80px 100px; }
+.gallery-count { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 3px; color: #333; text-transform: uppercase; margin-bottom: 36px; }
+.gallery-count span { color: #b01020; }
+.gallery { columns: 3; column-gap: 6px; }
+.gallery-item { break-inside: avoid; margin-bottom: 6px; position: relative; overflow: hidden; cursor: pointer; display: block; }
+.gallery-item img { width: 100%; display: block; transition: transform 0.4s ease; }
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-item-overlay { position: absolute; inset: 0; background: rgba(176,16,32,0); display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+.gallery-item:hover .gallery-item-overlay { background: rgba(176,16,32,0.4); }
+.gallery-item-icon { color: #fff; font-size: 28px; opacity: 0; transition: opacity 0.3s, transform 0.3s; transform: scale(0.8); }
+.gallery-item:hover .gallery-item-icon { opacity: 1; transform: scale(1); }
+.gallery-item.hidden { display: none; }
+.lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; display: block; }
+.lightbox-close { position: absolute; top: 24px; right: 32px; color: #fff; font-size: 32px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 300; opacity: 0.7; }
+.lightbox-close:hover { opacity: 1; }
+.lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; font-size: 40px; cursor: pointer; opacity: 0.5; padding: 20px; user-select: none; }
+.lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
+.lightbox-prev:hover, .lightbox-next:hover { opacity: 1; }
+.lightbox-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 3px; color: #555; text-transform: uppercase; }
+footer { background: #060606; padding: 32px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #161616; }
+.footer-logo img { height: 36px; background: #fff; padding: 3px 6px; display: block; }
+.footer-copy { font-size: 11px; color: #333; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; }
+.footer-social { display: flex; gap: 10px; }
+.social { width: 34px; height: 34px; border: 1px solid #1e1e1e; display: flex; align-items: center; justify-content: center; color: #333; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Montserrat', sans-serif; }
+.social:hover { border-color: #b01020; color: #b01020; }
+
+.gallery-item img, .featured-item img, .step-image, .about-photo, .story-image, .nick-photo, .nick-card .nick-photo { filter: contrast(1.10) brightness(1.04) saturate(1.18); transition: filter 0.3s, transform 0.4s ease; }
+.gallery-item:hover img, .featured-item:hover img { filter: contrast(1.14) brightness(1.07) saturate(1.22); }
+.hero-bg, .page-header-bg, .cta-bg { filter: contrast(1.12) brightness(1.05) saturate(1.20); }
+.lightbox-img { filter: contrast(1.10) brightness(1.04) saturate(1.18); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="Link Renovations"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="portfolio.html" class="active">Portfolio</a>
+    <a href="about.html">About</a>
+    <a href="process.html">Our Process</a>
+    <a href="testimonials.html">Testimonials</a>
+    <a href="contact.html" class="cta">Free Estimate</a>
+  </div>
+</nav>
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-content">
+    <div class="page-tag">Our Work</div>
+    <div class="page-title">Portfolio</div>
+  </div>
+</div>
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All Work<span class="cnt">189</span></button>
+  <button class="filter-btn" data-filter="bathrooms">Bathrooms<span class="cnt">51</span></button>
+  <button class="filter-btn" data-filter="kitchens">Kitchens<span class="cnt">50</span></button>
+  <button class="filter-btn" data-filter="misc">Misc Remodels<span class="cnt">28</span></button>
+  <button class="filter-btn" data-filter="woodwork">Woodwork<span class="cnt">22</span></button>
+  <button class="filter-btn" data-filter="decks">Decks<span class="cnt">16</span></button>
+  <button class="filter-btn" data-filter="flooring">Flooring<span class="cnt">6</span></button>
+  <button class="filter-btn" data-filter="commercial">Commercial<span class="cnt">16</span></button>
+</div>
+<div class="gallery-wrap">
+  <div class="gallery-count">Showing <span class="count-num">189</span> projects</div>
+  <div class="gallery" id="gallery">
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6135.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6134.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6133.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6113.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6097.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6098.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8380073.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/1898574.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6494071.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/7901642.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2261335.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/7921999.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3531245.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/5971371.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3539590.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9332608.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/5982455.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2933490.jpeg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2338518.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6249357.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9137147.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9154863.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/4118229.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9331542.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/7824351.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3359334.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/7995328.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2333373.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8006900.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3675288.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6669907.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/butler2.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/22549893-1126207277511605-3847449063632920210-n.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6102.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/5052012.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8244528.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6355543.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8471060.png" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/15826833-949969008468767-8933796610039735121-n.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/16938466-981768198622181-8606577122092504851-n.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/17800097-1005472909585043-2042712665770465587-n.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/17629840-1005472986251702-954780820531150073-n.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/fullsizerender-2_1.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/link-reno.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/45396837-1405763996222597-7041198333141975040-n.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sw14.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sw17_1.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sycamore20.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky23.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky24.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6114.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6115.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6116.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6118.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6126.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky9.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky8.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky10.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky7.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/43405841-1385949881537342-8754612949617737728-n.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/43415343-1385949834870680-6836367786562813952-n.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/43371618-1385949844870679-5015232800438091776-n.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/43465058-1385949861537344-1803258675108773888-n.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/43406050-1385949951537335-3188777943266492416-n.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/43372250-1385949934870670-8929509760282132480-n.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/43400881-1385949971537333-5943531045927256064-n.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen3.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen4.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen1.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen2.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6855682.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/4469645.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6100678.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/5695639.png" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9443161.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/5846645.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/312974.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/5026837.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/290034.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1382.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1383.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1384.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1385.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1388.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1419.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1447.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1442.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-1444.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/flip1.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/flip4.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/flip2.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/flip6.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/flip3.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/flip5.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-0127.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sw3.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sw4.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sw5.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sw6.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sw7.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/cf66a15214f7e18a10d06183e5c84d1a.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/4285610.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/1422674.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6184232.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/854347.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3881727.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9516880.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/1491581.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2466237.png" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/5163142.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3496530.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9179875.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2797410.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/4239458.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6336765.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/13509039-838165379649131-7754136055269797375-n_1.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/13873125-856561204476215-5537209233075948584-n.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/13902651-856561227809546-3567337385819492716-n.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/15894761-950887778376890-3905240852921836990-n.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/flip7.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/linkreno2.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/linkreno.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/linkreno1.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/murphy-bed.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/murphy-bed-1.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky11.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky12.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="misc" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky14.jpg" loading="lazy" alt="misc"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood1.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood2.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood3.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood4.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood5.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood17.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood16.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood6.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood7.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood8.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood9.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood10.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood11.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood13.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood14.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood15.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/table.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/table1.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/wood19.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky16.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="woodwork" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/ky15.jpg" loading="lazy" alt="woodwork"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/4357999.png" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2345466.png" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/1274506.png" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/1209106.png" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9953115.png" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8740425.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/1355294.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/7739177.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/6681848.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2378771.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/5274219.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/7954511.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/15894571-951951241603877-3653184776914776253-n.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/15894738-951951354937199-5129444714671109579-n.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/15941074-951951298270538-9085941622712806418-n.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="decks" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/15977234-951951318270536-6611402114288474206-n.jpg" loading="lazy" alt="decks"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="flooring" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/7745760.jpg" loading="lazy" alt="flooring"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="flooring" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8524437.jpg" loading="lazy" alt="flooring"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="flooring" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8144939.jpg" loading="lazy" alt="flooring"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="flooring" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/4809559.jpg" loading="lazy" alt="flooring"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="flooring" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3330564.jpg" loading="lazy" alt="flooring"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="flooring" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/13567515-838165392982463-1398050087599757459-n_1.jpg" loading="lazy" alt="flooring"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/50255659-1463398483792481-3853490420847738880-n.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/50334260-1463398480459148-4091049593179996160-n.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/50710701-1463398527125810-4672605181718822912-n.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/50636757-1463398520459144-2638278747848966144-n.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/50317422-1463398547125808-3969140081809162240-n.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/50586590-1463398580459138-3061570667045453824-n.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8335167.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/3343610.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/355394.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/1169325.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/723264.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/1806350.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8520059.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/9439209.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/8112334.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="commercial" onclick="openLightbox(this)"><img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/2522887.jpg" loading="lazy" alt="commercial"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+  </div>
+</div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <span class="lightbox-close" onclick="closeLightbox()">×</span>
+  <span class="lightbox-prev" onclick="event.stopPropagation();shiftLightbox(-1)">‹</span>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <span class="lightbox-next" onclick="event.stopPropagation();shiftLightbox(1)">›</span>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+<footer>
+  <div class="footer-logo"><img src="logo.png" alt="Link Renovations"></div>
+  <div class="footer-copy">© 2025 Link Renovations · Louisville, KY</div>
+  <div class="footer-social">
+    <a href="#" class="social">f</a>
+    <a href="#" class="social">ig</a>
+    <a href="#" class="social">in</a>
+    <a href="#" class="social">H</a>
+  </div>
+</footer>
+<script>
+const buttons = document.querySelectorAll('.filter-btn');
+const items = document.querySelectorAll('.gallery-item');
+const countEl = document.querySelector('.count-num');
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    let count = 0;
+    items.forEach(item => {
+      const show = filter === 'all' || item.dataset.cat === filter;
+      item.classList.toggle('hidden', !show);
+      if (show) count++;
+    });
+    countEl.textContent = count;
+  });
+});
+let currentItems = []; let currentIndex = 0;
+function getVisibleItems() { return Array.from(document.querySelectorAll('.gallery-item:not(.hidden)')); }
+function openLightbox(el) {
+  currentItems = getVisibleItems();
+  currentIndex = currentItems.indexOf(el);
+  showLightboxImage();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function showLightboxImage() {
+  document.getElementById('lightbox-img').src = currentItems[currentIndex].querySelector('img').src;
+  document.getElementById('lightbox-counter').textContent = (currentIndex + 1) + ' / ' + currentItems.length;
+}
+function shiftLightbox(dir) {
+  currentIndex = (currentIndex + dir + currentItems.length) % currentItems.length;
+  showLightboxImage();
+}
+function closeLightbox(e) {
+  if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') shiftLightbox(1);
+  if (e.key === 'ArrowLeft') shiftLightbox(-1);
+  if (e.key === 'Escape') closeLightbox({target: document.getElementById('lightbox')});
+});
+</script>
+</body>
+</html>
