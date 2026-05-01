@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Link Renovations — Louisville, KY</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="mobile.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -29,16 +31,50 @@
     /* ─── HERO ─── */
     .hero {
       height: 100vh; position: relative;
-      display: flex; align-items: center; justify-content: flex-start;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6135.jpg') center/cover no-repeat;
+    .hero-logo-side {
+      position: relative; z-index: 1;
+      padding-left: 80px;
+      order: -1;
+      display: flex; align-items: center; justify-content: center;
+      flex: 0 0 auto;
+      animation: crestFade 1.2s ease-out both;
+    }
+    .hero-logo-stage {
+      position: relative;
+      width: clamp(360px, 42vw, 600px);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-logo-stage::before {
+      content: ''; position: absolute; inset: -8% -10%;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 65%);
+      filter: blur(8px);
+      z-index: 0;
+    }
+    .hero-logo-stage img {
+      position: relative; z-index: 1;
+      width: 100%; height: auto; display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: auto;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,0.7)) drop-shadow(0 0 18px rgba(0,0,0,0.5));
+    }
+        .hero-bg {
+      position: absolute; inset: -10px;
+      background: url('photos/hero-outdoor-kitchen-clean.jpg') center/cover no-repeat;
+      filter: blur(3px) brightness(1.05) saturate(1.05);
+      transform: scale(1.02);
     }
     .hero-bg::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(0,0,0,0.82) 40%, rgba(0,0,0,0.3) 100%);
+      background:
+        linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.78) 100%),
+        radial-gradient(ellipse at 22% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 55%);
+    }
+    .hero h1, .hero-eyebrow, .hero-sub {
+      text-shadow: 0 1px 8px rgba(0,0,0,0.95), 0 2px 18px rgba(0,0,0,0.7);
     }
     .hero-content {
       position: relative; z-index: 1;
@@ -46,9 +82,13 @@
     }
     .hero-eyebrow {
       font-family: 'Montserrat', sans-serif;
-      font-size: 10px; font-weight: 700; letter-spacing: 5px;
-      text-transform: uppercase; color: #b01020;
+      font-size: 11px; font-weight: 700; letter-spacing: 4.5px;
+      text-transform: uppercase; color: #fff;
       margin-bottom: 20px;
+    }
+    @keyframes crestFade {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     .hero h1 {
       font-family: 'Montserrat', sans-serif;
@@ -85,24 +125,66 @@
     }
     .hero-scroll-line { width: 40px; height: 1px; background: #b01020; }
 
-    /* ─── INTRO STRIP ─── */
-    .intro {
-      background: #b01020;
-      padding: 28px 80px;
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 40px;
+    /* ─── STATS BAND ─── */
+    .stats-band {
+      background: #0d0d0d;
+      padding: 80px 80px;
+      border-top: 1px solid #161616;
+      border-bottom: 1px solid #161616;
     }
-    .intro-stat { text-align: center; }
-    .intro-stat strong {
-      display: block;
+    .stats-band-inner {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      background: #1a1a1a;
+    }
+    .stat-card {
+      background: #111;
+      padding: 40px 28px;
+      text-align: center;
+      position: relative;
+      transition: background 0.3s, transform 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+    .stat-card:hover { background: #161616; border-bottom-color: #b01020; transform: translateY(-2px); }
+    .stat-num {
       font-family: 'Montserrat', sans-serif;
-      font-size: 28px; font-weight: 900;
+      font-size: 52px; font-weight: 900; color: #fff;
+      line-height: 1; margin-bottom: 14px;
+      letter-spacing: -1px;
     }
-    .intro-stat span {
-      font-size: 9.5px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: rgba(255,255,255,0.8); margin-top: 2px; display: block;
+    .count-stars { color: #b01020; font-size: 36px; letter-spacing: 4px; display: inline-block; }
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #888;
     }
-    .intro-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.3); }
+    .stat-card.in-view .stat-num { animation: stat-pop 0.5s ease both; }
+    @keyframes stat-pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* ─── HERO STATS OVERLAY (full-width bottom) ─── */
+    .hero { position: relative; }
+    .hero-stats {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: transparent; padding: 0; border: 0; margin: 0;
+      z-index: 5;
+    }
+    .hero-stats .stats-band-inner {
+      background: transparent;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
+    .hero-stats .stat-card {
+      background: rgba(0,0,0,0.55);
+      padding: 16px 10px;
+      border-bottom: 2px solid transparent;
+    }
+    .hero-stats .stat-card:hover { background: rgba(0,0,0,0.7); border-bottom-color: #b01020; transform: none; }
+    .hero-stats .stat-num { font-size: 24px; margin-bottom: 6px; }
+    .hero-stats .count-stars { font-size: 18px; letter-spacing: 2px; }
+    .hero-stats .stat-label { font-size: 8.5px; letter-spacing: 1.6px; color: #ccc; }
 
     /* ─── SECTION COMMON ─── */
     .section { padding: 100px 80px; }
@@ -177,7 +259,7 @@
     }
     .about-photo {
       min-height: 520px;
-      background: url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/13912397-858377754294560-661833225606140644-n_orig.jpg') center top/cover;
+      background: url('photos/bath-08.jpg') center top/cover;
     }
     .about-body {
       padding: 80px 70px;
@@ -233,7 +315,7 @@
     }
     .cta-bg {
       position: absolute; inset: 0;
-      background: url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen1.jpg') center/cover;
+      background: url('photos/outdoor-05.jpg') center/cover;
     }
     .cta-bg::after {
       content: ''; position: absolute; inset: 0;
@@ -271,6 +353,45 @@
 .gallery-item:hover img, .featured-item:hover img { filter: contrast(1.14) brightness(1.07) saturate(1.22); }
 .hero-bg, .page-header-bg, .cta-bg { filter: contrast(1.12) brightness(1.05) saturate(1.20); }
 .lightbox-img { filter: contrast(1.10) brightness(1.04) saturate(1.18); }
+
+
+
+
+/* ─── MOBILE APP-LIKE NAV ─── */
+.nav-hamburger { display: none; }
+.mobile-drawer 
+
+/* MOBILE TWEAKS — gradient nav, locked hamburger, hide hero red button */
+
+
+/* MOBILE LOCK — prevent iOS scroll jitter on fixed bars */
+
+
+/* Solid background for sticky bar safe-area */
+
+
+/* Larger red eyebrow tags (more readable) */
+.page-tag, .section-tag, .featured-tag, .hero-eyebrow {
+  font-size: 15px !important; letter-spacing: 4px !important;
+}
+.featured-link, .standard-card-num, .nick-role {
+  font-size: 14px !important; letter-spacing: 3.5px !important;
+}
+.featured-item-cat, .gallery-item-cat, .drawer-tag, .featured-item-label, .stat-label {
+  font-size: 12.5px !important; letter-spacing: 2.8px !important;
+}
+
+
+/* Show full photo composition (no cropping) for showcase elements */
+.featured-item img { object-fit: contain !important; background: #0a0a0a; }
+.about-photo, .story-image, .nick-photo, .step-image {
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: #0a0a0a !important;
+}
+
+
 </style>
 </head>
 <body>
@@ -283,12 +404,13 @@
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
     <a href="portfolio.html">Portfolio</a>
-    <a href="about.html">About</a>
+    <a href="about.html">Who We Are</a>
     <a href="process.html">Our Process</a>
     <a href="testimonials.html">Testimonials</a>
     <a href="contact.html" class="cta">Free Estimate</a>
   </div>
 </nav>
+
 
 <!-- HERO -->
 <div class="hero">
@@ -302,148 +424,98 @@
       <a href="portfolio.html" class="btn-ghost">View Our Work</a>
     </div>
   </div>
-  <div class="hero-scroll">
-    <div class="hero-scroll-line"></div>
-    Scroll to explore
-  </div>
-</div>
-
-<!-- STATS -->
-<div class="intro">
-  <div class="intro-stat"><strong>10+</strong><span>Years Experience</span></div>
-  <div class="intro-divider"></div>
-  <div class="intro-stat"><strong>200+</strong><span>Projects Completed</span></div>
-  <div class="intro-divider"></div>
-  <div class="intro-stat"><strong>100%</strong><span>Fully Insured</span></div>
-  <div class="intro-divider"></div>
-  <div class="intro-stat"><strong>Louisville, KY</strong><span>& Surrounding Areas</span></div>
-</div>
-
-<!-- SERVICES -->
-<div class="section services">
-  <div class="services-header">
-    <div class="section-tag">What We Do</div>
-    <div class="section-title">Our Services</div>
-    <div class="section-rule"></div>
-  </div>
-  <div class="services-grid">
-    <div class="service">
-      <div class="service-num">01</div>
-      <div class="service-name">Bathroom Remodels</div>
-      <div class="service-desc">Custom tile, marble, heated floors, walk-in showers, and luxury finishes built to last.</div>
+  <div class="hero-logo-side"><div class="hero-logo-stage"><img src="logo-mark-v4.png" alt="Link Renovations"></div></div>
+  <!-- STATS (overlaid full-width across hero bottom) -->
+  <div class="stats-band hero-stats">
+    <div class="stats-band-inner">
+      <div class="stat-card">
+        <div class="stat-num"><span class="count" data-target="10" data-suffix="+">0</span></div>
+        <div class="stat-label">Years of Craftsmanship</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="count" data-target="200" data-suffix="+">0</span></div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="count" data-target="100" data-suffix="%">0</span></div>
+        <div class="stat-label">Fully Licensed &amp; Insured</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="count-stars" data-target="5">★★★★★</span></div>
+        <div class="stat-label">Five-Star Client Rating</div>
+      </div>
     </div>
-    <div class="service">
-      <div class="service-num">02</div>
-      <div class="service-name">Kitchen Renovations</div>
-      <div class="service-desc">Complete overhauls with custom cabinetry, granite countertops, islands, and modern layouts.</div>
-    </div>
-    <div class="service">
-      <div class="service-num">03</div>
-      <div class="service-name">Custom Woodworking</div>
-      <div class="service-desc">Handcrafted barn doors, built-ins, murphy beds, mantels, shelving, and furniture.</div>
-    </div>
-    <div class="service">
-      <div class="service-num">04</div>
-      <div class="service-name">Outdoor Living</div>
-      <div class="service-desc">Custom decks, pergolas, outdoor kitchens, fire pits, and exterior improvements.</div>
-    </div>
-    <div class="service">
-      <div class="service-num">05</div>
-      <div class="service-name">Flooring</div>
-      <div class="service-desc">Tile, hardwood, and laminate installation with precision and care throughout your home.</div>
-    </div>
-    <div class="service">
-      <div class="service-num">06</div>
-      <div class="service-name">Fireplaces & More</div>
-      <div class="service-desc">Fireplace facelifts, accent walls, living room revamps, and custom feature upgrades.</div>
-    </div>
-  </div>
-</div>
-
-<!-- FEATURED WORK -->
-<div class="section featured">
-  <div class="featured-header">
-    <div>
-      <div class="section-tag">Portfolio</div>
-      <div class="section-title">Featured Work</div>
-      <div class="section-rule"></div>
-    </div>
-    <a href="portfolio.html" class="featured-link">View Full Portfolio →</a>
-  </div>
-  <div class="featured-grid">
-    <div class="featured-item large">
-      <img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6134.jpg" alt="Bathroom Remodel">
-      <div class="featured-item-overlay"><span class="featured-item-label">Bathroom Remodel</span></div>
-    </div>
-    <div class="featured-item">
-      <img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/kitchen2.jpg" alt="Kitchen Renovation">
-      <div class="featured-item-overlay"><span class="featured-item-label">Kitchen Renovation</span></div>
-    </div>
-    <div class="featured-item">
-      <img src="https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/sycamore20.jpg" alt="Custom Remodel">
-      <div class="featured-item-overlay"><span class="featured-item-label">Custom Remodel</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT TEASER -->
-<div class="about-teaser">
-  <div class="about-photo"></div>
-  <div class="about-body">
-    <div class="section-tag">About Nick Link</div>
-    <div class="section-title">Renovator.<br>Craftsman.<br>Louisville Native.</div>
-    <div class="section-rule"></div>
-    <p>Link Renovations specializes in <strong>high-quality remodeling for residential and commercial properties</strong> in Louisville, KY. Fully insured, detail-obsessed, and built on a reputation of repeat clients and referrals.</p>
-    <div class="about-checks">
-      <div class="about-check"><div class="check-dot"></div>Fully licensed & insured</div>
-      <div class="about-check"><div class="check-dot"></div>Written quotes — materials, labor & installation</div>
-      <div class="about-check"><div class="check-dot"></div>Residential & commercial properties</div>
-    </div>
-    <div class="about-action">
-      <a href="about.html" class="btn-ghost" style="color:#888;border-color:#2a2a2a;">Our Story →</a>
-    </div>
-  </div>
-</div>
-
-<!-- TESTIMONIAL -->
-<div class="testimonial-section">
-  <div class="testimonial-left">
-    <div class="section-tag">Client Reviews</div>
-    <div class="section-title">What Clients Say</div>
-    <div class="section-rule"></div>
-    <p>A large portion of Nick's business comes from repeat clients and referrals — that says everything.</p>
-    <a href="testimonials.html" class="featured-link" style="display:inline-block;margin-top:28px;">Read All Testimonials →</a>
-  </div>
-  <div class="testimonial-quote">
-    <div class="quote-stars">★★★★★</div>
-    <span class="quote-mark">"</span>
-    <p class="quote-text">I can't say enough about Link Renovations. Completely exceeded my expectations. Nick held my hand through the entire process and even brought things to my attention that I never would have thought of. Start to finish in less than four weeks for an entire kitchen renovation. These guys do amazing work.</p>
-    <div class="quote-author">— Tricia Butler</div>
-  </div>
-</div>
-
-<!-- FINAL CTA -->
-<div class="cta-final">
-  <div class="cta-bg"></div>
-  <div class="cta-content">
-    <h2>Ready to Transform<br>Your Home?</h2>
-    <p>Contact Nick today for a free consultation and written quote.</p>
-    <a href="contact.html" class="btn-red">Get Your Free Estimate</a>
-    <a href="tel:5023772551" class="phone">(502) 377-2551</a>
   </div>
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-logo"><img src="logo.png" alt="Link Renovations"></div>
-  <div class="footer-copy">© 2025 Link Renovations · Louisville, KY</div>
-  <div class="footer-social">
-    <a href="#" class="social">f</a>
-    <a href="#" class="social">ig</a>
-    <a href="#" class="social">in</a>
-    <a href="#" class="social">H</a>
+<footer class="upgraded">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo"><img src="logo.png" alt="Link Renovations" style="height: 44px; background: #fff; padding: 6px 10px; display: block;"></div>
+      <p class="footer-tagline">High-quality remodeling for residential and commercial properties throughout Louisville, KY and surrounding areas. Where craftsmanship meets your vision.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="about.html">Who We Are</a>
+      <a href="process.html">Our Process</a>
+      <a href="testimonials.html">Testimonials</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="portfolio.html">Bathroom Remodels</a>
+      <a href="portfolio.html">Kitchen Renovations</a>
+      <a href="portfolio.html">Outdoor Living</a>
+      <a href="portfolio.html">Custom Woodwork</a>
+      <a href="portfolio.html">Commercial Builds</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:5023772551">(502) 377-2551</a>
+      <a href="mailto:nick@linkrenovations.com">nick@linkrenovations.com</a>
+      <p>Louisville, KY<br>&amp; Surrounding Areas</p>
+      <a href="contact.html" style="color: #b01020; font-weight: 700; margin-top: 14px;">Get Free Estimate →</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Link Renovations · Louisville, KY · All Rights Reserved</div>
+    <div class="footer-social">
+      <a href="#" class="social">f</a>
+      <a href="#" class="social">ig</a>
+      <a href="#" class="social">in</a>
+      <a href="#" class="social">H</a>
+    </div>
   </div>
 </footer>
 
+
+<button class="nav-hamburger" aria-label="Menu" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-overlay" onclick="toggleDrawer()"></div>
+  <div class="drawer-panel">
+    <div class="drawer-header">
+      <div class="drawer-tag">Link Renovations</div>
+      <button class="drawer-close" onclick="toggleDrawer()" aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="about.html">Who We Are</a>
+      <a href="process.html">Our Process</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Free Estimate</a>
+    </div>
+    <div class="drawer-contact">
+      <div class="drawer-contact-label">Get In Touch</div>
+      <a href="tel:5023772551">(502) 377-2551</a>
+      <a href="mailto:nick@linkrenovations.com">nick@linkrenovations.com</a>
+    </div>
+  </div>
+</div>
+<button class="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0, behavior: 'smooth'})"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg></button>
+
+<script src="shared.js"></script>
 </body>
 </html>

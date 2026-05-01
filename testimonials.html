@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Testimonials — Link Renovations</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="mobile.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -20,7 +22,7 @@
     .nav-links .cta:hover { background: #8f0d19; color: #fff; }
 
     .page-header { padding-top: 74px; height: 320px; position: relative; display: flex; align-items: flex-end; }
-    .page-header-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6097.jpg') center/cover; }
+    .page-header-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('photos/bath-11.jpg') center/cover; }
     .page-header-content { position: relative; z-index: 1; padding: 0 80px 56px; }
     .page-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 12px; }
     .page-title { font-family: 'Montserrat', sans-serif; font-size: 52px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
@@ -54,7 +56,7 @@
 
     /* CTA */
     .cta-final { position: relative; min-height: 380px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-    .cta-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)), url('https://images.weserv.nl/?url=www.linkrenovations.com/uploads/1/7/3/7/17373825/img-6134.jpg') center/cover; }
+    .cta-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)), url('photos/bath-02.jpg') center/cover; }
     .cta-content { position: relative; z-index: 1; padding: 0 40px; }
     .cta-content h2 { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
     .cta-content p { color: #aaa; font-size: 15px; margin-bottom: 36px; font-weight: 300; }
@@ -72,6 +74,49 @@
 .gallery-item:hover img, .featured-item:hover img { filter: contrast(1.14) brightness(1.07) saturate(1.22); }
 .hero-bg, .page-header-bg, .cta-bg { filter: contrast(1.12) brightness(1.05) saturate(1.20); }
 .lightbox-img { filter: contrast(1.10) brightness(1.04) saturate(1.18); }
+
+
+
+/* ─── MOBILE APP-LIKE NAV ─── */
+.nav-hamburger { display: none; }
+.mobile-drawer 
+
+/* MOBILE TWEAKS — gradient nav, locked hamburger, hide hero red button */
+
+
+/* MOBILE LOCK — prevent iOS scroll jitter on fixed bars */
+
+
+/* Solid background for sticky bar safe-area */
+
+
+/* Fluid page title: spans width without cutting */
+.page-header-content { padding-left: 40px !important; padding-right: 40px !important; max-width: 100% !important; }
+.page-title { font-size: clamp(32px, 6.5vw, 72px) !important; line-height: 1 !important; word-break: normal; white-space: nowrap; overflow: hidden; }
+
+
+/* Larger red eyebrow tags (more readable) */
+.page-tag, .section-tag, .featured-tag, .hero-eyebrow {
+  font-size: 15px !important; letter-spacing: 4px !important;
+}
+.featured-link, .standard-card-num, .nick-role {
+  font-size: 14px !important; letter-spacing: 3.5px !important;
+}
+.featured-item-cat, .gallery-item-cat, .drawer-tag, .featured-item-label, .stat-label {
+  font-size: 12.5px !important; letter-spacing: 2.8px !important;
+}
+
+
+/* Show full photo composition (no cropping) for showcase elements */
+.featured-item img { object-fit: contain !important; background: #0a0a0a; }
+.about-photo, .story-image, .nick-photo, .step-image {
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: #0a0a0a !important;
+}
+
+
 </style>
 </head>
 <body>
@@ -81,13 +126,19 @@
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="portfolio.html">Portfolio</a>
-    <a href="about.html">About</a>
+    <a href="about.html">Who We Are</a>
     <a href="process.html">Our Process</a>
     <a href="testimonials.html" class="active">Testimonials</a>
     <a href="contact.html" class="cta">Free Estimate</a>
   </div>
 </nav>
 
+
+<nav class="section-nav" aria-label="Section navigation">
+  <a href="#featured" data-link="featured">Featured</a>
+  <a href="#reviews" data-link="reviews">Reviews</a>
+  <a href="#cta" data-link="cta">Get Started</a>
+</nav>
 <div class="page-header">
   <div class="page-header-bg"></div>
   <div class="page-header-content">
@@ -96,7 +147,7 @@
   </div>
 </div>
 
-<div class="featured-quote">
+<div class="featured-quote" id="featured">
   <div class="stars">★★★★★</div>
   <span class="quote-mark">"</span>
   <p class="quote-text">I can't say enough about Link Renovations. Completely exceeded my expectations. Nick held my hand through the entire process and even brought things to my attention that I never would have thought of. Start to finish in less than four weeks for an entire kitchen renovation. These guys do amazing work.</p>
@@ -109,7 +160,7 @@
     <div class="section-title">What Our Clients Say</div>
     <div class="section-rule"></div>
   </div>
-  <div class="testimonials-grid">
+  <div class="testimonials-grid" id="reviews">
 
     <div class="testimonial-card">
       <div class="stars">★★★★★</div>
@@ -166,7 +217,7 @@
   <h3>A Large Portion of Our Business Comes From<br>Repeat Clients & Referrals.</h3>
 </div>
 
-<div class="cta-final">
+<div class="cta-final" id="cta">
   <div class="cta-bg"></div>
   <div class="cta-content">
     <h2>Want To Be Our Next<br>Five-Star Review?</h2>
@@ -176,16 +227,73 @@
   </div>
 </div>
 
-<footer>
-  <div class="footer-logo"><img src="logo.png" alt="Link Renovations"></div>
-  <div class="footer-copy">© 2025 Link Renovations · Louisville, KY</div>
-  <div class="footer-social">
-    <a href="#" class="social">f</a>
-    <a href="#" class="social">ig</a>
-    <a href="#" class="social">in</a>
-    <a href="#" class="social">H</a>
+<footer class="upgraded">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo"><img src="logo.png" alt="Link Renovations" style="height: 44px; background: #fff; padding: 6px 10px; display: block;"></div>
+      <p class="footer-tagline">High-quality remodeling for residential and commercial properties throughout Louisville, KY and surrounding areas. Where craftsmanship meets your vision.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="about.html">Who We Are</a>
+      <a href="process.html">Our Process</a>
+      <a href="testimonials.html">Testimonials</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="portfolio.html">Bathroom Remodels</a>
+      <a href="portfolio.html">Kitchen Renovations</a>
+      <a href="portfolio.html">Outdoor Living</a>
+      <a href="portfolio.html">Custom Woodwork</a>
+      <a href="portfolio.html">Commercial Builds</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:5023772551">(502) 377-2551</a>
+      <a href="mailto:nick@linkrenovations.com">nick@linkrenovations.com</a>
+      <p>Louisville, KY<br>&amp; Surrounding Areas</p>
+      <a href="contact.html" style="color: #b01020; font-weight: 700; margin-top: 14px;">Get Free Estimate →</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Link Renovations · Louisville, KY · All Rights Reserved</div>
+    <div class="footer-social">
+      <a href="#" class="social">f</a>
+      <a href="#" class="social">ig</a>
+      <a href="#" class="social">in</a>
+      <a href="#" class="social">H</a>
+    </div>
   </div>
 </footer>
 
+
+<button class="nav-hamburger" aria-label="Menu" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-overlay" onclick="toggleDrawer()"></div>
+  <div class="drawer-panel">
+    <div class="drawer-header">
+      <div class="drawer-tag">Link Renovations</div>
+      <button class="drawer-close" onclick="toggleDrawer()" aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="about.html">Who We Are</a>
+      <a href="process.html">Our Process</a>
+      <a href="testimonials.html" class="active">Testimonials</a>
+      <a href="contact.html">Free Estimate</a>
+    </div>
+    <div class="drawer-contact">
+      <div class="drawer-contact-label">Get In Touch</div>
+      <a href="tel:5023772551">(502) 377-2551</a>
+      <a href="mailto:nick@linkrenovations.com">nick@linkrenovations.com</a>
+    </div>
+  </div>
+</div>
+<button class="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0, behavior: 'smooth'})"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg></button>
+
+<script src="shared.js"></script>
 </body>
 </html>
