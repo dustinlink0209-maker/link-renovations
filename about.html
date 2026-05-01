@@ -65,7 +65,7 @@
 
     /* The Standard (now Row 3 of merged Who We Are section) */
     .standard { padding: 0 80px 100px; background: #0d0d0d; }
-    .standard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #1a1a1a; max-width: 1200px; margin: 0 auto; }
+    .standard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #1a1a1a; max-width: none; margin: 0; }
     .standard-card { background: #0d0d0d; padding: 50px 44px; border-bottom: 3px solid transparent; transition: border-color 0.25s, background 0.25s; }
     .standard-card:hover { border-color: #b01020; background: #111; }
     .standard-card-num { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 4px; color: #b01020; margin-bottom: 20px; }
@@ -144,6 +144,11 @@
   background-color: #0a0a0a !important;
 }
 
+/* About page mobile override: 2x2 standard cards grid (overrides mobile.css 1fr default) */
+@media (max-width: 1280px) {
+  .standard-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: none !important; margin: 0 !important; }
+  .standard-card { padding: 32px 24px !important; }
+}
 
 </style>
 </head>
