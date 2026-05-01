@@ -38,6 +38,31 @@
     .story-text p { font-size: 14px; color: #999; line-height: 1.95; margin-bottom: 18px; }
     .story-text p strong { color: #ddd; font-weight: 600; }
 
+    /* Trust strip — replaces the full Stats Band, sits between prose row and cards row in the merged Who We Are section */
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      padding: 22px 40px;
+      background: #0a0a0a;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .trust-strip > span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      color: #ccc;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .trust-strip .trust-sep { color: #333; font-weight: 400; letter-spacing: 0; }
+    .trust-strip .trust-stars { color: #b01020; font-size: 16px; letter-spacing: 4px; }
+
     /* The Standard */
     .standard { padding: 100px 80px; background: #0a0a0a; }
     .standard-header { max-width: 720px; margin: 0 auto 60px; text-align: center; }
@@ -156,6 +181,17 @@
     <p>Link Renovations specializes in <strong>high-quality remodeling for residential and commercial properties</strong> in Louisville, KY and the surrounding areas. We are fully insured and treat your home as if we are working in our own.</p>
     <p>From custom tile and marble bathrooms to full kitchen renovations, custom woodworking, decks, and commercial projects — every job receives the same level of care and craftsmanship.</p>
   </div>
+</div>
+
+<!-- Trust strip — slim divider between prose row and cards row -->
+<div class="trust-strip">
+  <span>10+ Years</span>
+  <span class="trust-sep">·</span>
+  <span>200+ Projects</span>
+  <span class="trust-sep">·</span>
+  <span>100% Licensed &amp; Insured</span>
+  <span class="trust-sep">·</span>
+  <span class="trust-stars">★★★★★</span>
 </div>
 
 <!-- THE STANDARD -->
