@@ -40,13 +40,31 @@ styling to `shared.css` (desktop) plus a matching rule in `mobile.css`
 
 ## Deploy
 
+Two deploy targets exist. **Preview is for QA; production is live.**
+
+### Preview (QA / staging)
+
+```bash
+cd /Users/dustinlink/link-renovations-website
+npx wrangler deploy --env preview
+```
+
+Worker: `link-renovations-preview`. URL: https://link-renovations-preview.dustin-link0209.workers.dev/.
+Use this for any change that touches layout, typography, or section structure. Visual-QA the preview URL on desktop (default / 1920 / 1280 / 375 widths) and a real phone before promoting to production.
+
+### Production
+
 ```bash
 cd /Users/dustinlink/link-renovations-website
 npx wrangler deploy
 ```
 
-Worker name is `link-renovations`. Live at
-https://link-renovations.dustin-link0209.workers.dev/.
+Worker: `link-renovations`. URL: https://link-renovations.dustin-link0209.workers.dev/.
+Only deploy here after the preview URL has been QA'd and approved.
+
+### Note on `wrangler.jsonc` location
+
+`wrangler.jsonc` lives at the repo root (`/Users/dustinlink/link-renovations-website/`), one directory up from the git-tracked `deploy/` subdirectory. The git repo only tracks files inside `deploy/`. Treat `wrangler.jsonc` as part of the project even though it lives outside the tracked tree.
 
 ## Don'ts
 
