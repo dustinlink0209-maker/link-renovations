@@ -17,7 +17,7 @@ The current About page has eight sections, each with `padding: 100px 80px`, tota
 |-----------|--------|---------------|
 | User-friendly | ≥95% | Cut redundancy only; preserve all unique copy and trust signals |
 | Same look and feel | ≥95% | Reuse all existing CSS classes; keep section padding at 100px to match other pages |
-| Desktop ↔ mobile parity | ≥95% | Pin mobile card grid explicitly; preview-deploy QA gate before production |
+| Desktop ↔ mobile parity | ≥95% | Pin mobile card grid explicitly; preview-deploy QA gate (`--env preview`) before production |
 
 ---
 
@@ -156,15 +156,53 @@ All edits are inside `deploy/about.html` `<style>` block. No changes to `shared.
 
 ---
 
+## Prerequisites (must be set up before this work begins)
+
+This spec relies on a **Wrangler preview environment** that does not yet exist in `wrangler.jsonc`. Before any About page edits, the preview environment must be added:
+
+1. Add `env.preview` block to `/Users/dustinlink/link-renovations-website/wrangler.jsonc`:
+   ```jsonc
+   {
+     "name": "link-renovations",
+     "compatibility_date": "2026-05-01",
+     "observability": { "enabled": true },
+     "assets": { "directory": "deploy" },
+     "compatibility_flags": ["nodejs_compat"],
+     "env": {
+       "preview": {
+         "name": "link-renovations-preview",
+         "assets": { "directory": "deploy" }
+       }
+     }
+   }
+   ```
+2. Test the preview deploy once: from the repo root, `npx wrangler deploy --env preview`. This creates a separate worker `link-renovations-preview` at `https://link-renovations-preview.dustin-link0209.workers.dev/`.
+3. Confirm the preview URL renders the current site (sanity check before any About page changes).
+4. Update `MOBILE_PARITY.md` Deploy section to document both targets:
+   - Preview: `npx wrangler deploy --env preview` → `link-renovations-preview.dustin-link0209.workers.dev`
+   - Production: `npx wrangler deploy` → `link-renovations.dustin-link0209.workers.dev`
+
+This is one-time infrastructure setup. Once done, every future change benefits from the preview-deploy safety net, not just this one.
+
 ## QA Gate (mandatory before production deploy)
 
-1. Build the change locally.
-2. Deploy to a Wrangler **preview** URL (not the production `link-renovations` worker).
-3. Visual QA at three widths in Chrome devtools: **1920px / 1280px / 375px**.
-4. Open the preview URL on an **actual phone** (iPhone or Android).
-5. Open the preview alongside `portfolio.html` and `process.html` and confirm visual consistency (padding rhythm, section header pattern, card grids).
-6. **Only after all five checks pass** → deploy to production `link-renovations` worker.
-7. If any check fails, fix in preview and re-QA. No rollback drama.
+The QA gate runs from `/Users/dustinlink/link-renovations-website/` (repo root, **never from `deploy/`** — per `MOBILE_PARITY.md`).
+
+1. Save changes to `deploy/about.html` (no build step — static site).
+2. From the repo root: `npx wrangler deploy --env preview`. Wait for the deploy to complete and the preview URL to update.
+3. Open `https://link-renovations-preview.dustin-link0209.workers.dev/about.html` on **desktop**:
+   - Default browser width
+   - Resize / use Chrome devtools at **1920px** width
+   - Resize / use Chrome devtools at **1280px** width (the breakpoint boundary)
+   - Resize / use Chrome devtools at **375px** width (iPhone size)
+4. Open the same preview URL on an **actual phone** (iPhone or Android).
+5. Open the preview alongside the production `portfolio.html` and `process.html` and confirm visual consistency:
+   - Section padding rhythm matches
+   - Section header pattern (eyebrow tag → title → red rule) matches
+   - Card grids look like siblings (1px gap on `#1a1a1a`, same hover behavior)
+6. **All four widths + actual phone + side-by-side comparison must look right.**
+7. **Only after all checks pass** → from the repo root: `npx wrangler deploy` (no `--env` flag) to push to production `link-renovations` worker.
+8. If any check fails, fix the source in `deploy/about.html`, redeploy to `--env preview`, re-QA. No production deploy until preview is clean.
 
 ---
 
@@ -174,6 +212,8 @@ All edits are inside `deploy/about.html` `<style>` block. No changes to `shared.
 - Shared assets (`shared.css`, `shared.js`, `mobile.css`): no changes.
 - Brand identity, copy rewrites, new photos, or new sections.
 - Section-nav pill CSS in `mobile.css`: stays in place for sibling pages.
+
+**In scope but outside `deploy/`:** the one-time `wrangler.jsonc` preview environment setup (see Prerequisites above) and the corresponding `MOBILE_PARITY.md` Deploy section update.
 
 ---
 
