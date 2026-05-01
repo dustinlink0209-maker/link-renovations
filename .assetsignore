@@ -2,3 +2,6 @@
 .wrangler
 wrangler.toml
 .assetsignore
+docs
+MOBILE_PARITY.md
+*.md
