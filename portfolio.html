@@ -114,9 +114,8 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 }
 
 
-/* Show full photo composition (no cropping) for showcase elements */
-.featured-item img { object-fit: contain !important; background: #0a0a0a; }
-.about-photo, .story-image, .nick-photo, .step-image {
+/* Featured items use cover to fill their grid cells edge-to-edge (shared.css default). */
+.about-photo, .nick-photo, .step-image {
   background-size: contain !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
