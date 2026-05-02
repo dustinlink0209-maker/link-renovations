@@ -202,8 +202,33 @@
       <div class="section-rule"></div>
     </div>
 
+    <!--
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      FORM RECIPIENT ROUTING — read before changing
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Web3Forms determines the destination email SOLELY by the access_key.
+      There is no `to=` or recipient field in the HTML — see docs.web3forms.com.
+      Each access_key is owned by one Web3Forms account, and submissions land
+      in that account's inbox.
+
+      Two access_keys, one per environment, switched at runtime by hostname:
+        • PROD_ACCESS_KEY → currently routes to dustin.link0209@gmail.com
+        • QC_ACCESS_KEY   → currently the SAME key (so QC also goes to Dustin
+                            until Nick registers his own Web3Forms account)
+
+      To route QC submissions to Nick (without touching production):
+        1. Have Nick sign up at https://web3forms.com with nick@linkrenovations.com
+        2. Replace QC_ACCESS_KEY below with the new key Nick gets
+        3. Redeploy preview:
+             cd /Users/dustinlink/link-renovations-website
+             npx wrangler deploy --env preview
+        4. Test on preview URL, then promote when ready by also swapping PROD_ACCESS_KEY
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    -->
     <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-      <input type="hidden" name="access_key" value="aa067dfd-2ea0-4687-879e-94cb5cbf7de6">
+      <input type="hidden" name="access_key" value="aa067dfd-2ea0-4687-879e-94cb5cbf7de6"
+        data-prod-key="aa067dfd-2ea0-4687-879e-94cb5cbf7de6"
+        data-qc-key="aa067dfd-2ea0-4687-879e-94cb5cbf7de6">
       <input type="hidden" name="subject" value="New Free Estimate Request — Link Renovations">
       <input type="hidden" name="from_name" value="Link Renovations Website">
       <input type="checkbox" name="botcheck" style="display:none;">
@@ -341,5 +366,19 @@
   </div>
 </div>
 <script src="shared.js"></script>
+<script>
+  // Form recipient routing: pick prod vs QC access_key based on hostname.
+  // See the "FORM RECIPIENT ROUTING" comment block above the form for details.
+  (function() {
+    var input = document.querySelector('input[name="access_key"]');
+    if (!input) return;
+    var host = location.hostname;
+    var QC_HOSTS = ['link-renovations-preview.dustin-link0209.workers.dev'];
+    var key = QC_HOSTS.indexOf(host) !== -1
+      ? input.getAttribute('data-qc-key')
+      : input.getAttribute('data-prod-key');
+    if (key) input.value = key;
+  })();
+</script>
 </body>
 </html>
