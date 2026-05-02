@@ -109,16 +109,18 @@
   background-position: center !important;
   background-color: #0a0a0a !important;
 }
-/* Step images: 404x300 OUTER, 400x300 inner (4:3 matching source photo aspect 1800x1350). border-box keeps bounding rect at 404, but the 4px border-left makes the padding/content box 400 wide. background-clip: padding-box constrains the image to that 400x300 area (zero crop, matches source aspect exactly), and the red border-left renders as a solid stripe on the left without overlapping the photo. */
-.step-image {
-  background-size: cover !important;
-  background-position: center !important;
-  background-clip: padding-box !important;
-  background-origin: padding-box !important;
-  min-height: 0 !important;
-  width: 404px !important;
-  height: 300px !important;
-  box-sizing: border-box !important;
+/* Step images: 404x300 OUTER, 400x300 inner (4:3 matching source photo aspect 1800x1350). border-box keeps bounding rect at 404, but the 4px border-left makes the padding/content box 400 wide. background-clip: padding-box constrains the image to that 400x300 area (zero crop, matches source aspect exactly), and the red border-left renders as a solid stripe on the left without overlapping the photo. Desktop only — mobile.css owns the ≤1280 sizing (fluid width, aspect-ratio preserved). */
+@media (min-width: 1281px) {
+  .step-image {
+    background-size: cover !important;
+    background-position: center !important;
+    background-clip: padding-box !important;
+    background-origin: padding-box !important;
+    min-height: 0 !important;
+    width: 404px !important;
+    height: 300px !important;
+    box-sizing: border-box !important;
+  }
 }
 
 

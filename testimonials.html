@@ -116,8 +116,10 @@
   background-color: #0a0a0a !important;
 }
 
-/* Override shared.css's body.has-section-nav padding-top: 138px so testimonials' page-header eyebrow lands at y=120 (matching about/process/portfolio). The section-nav pills are right-aligned and don't visually conflict with the left-aligned page-tag/title, so 74px is sufficient. */
-body.has-section-nav .page-header { padding-top: 74px !important; }
+/* Override shared.css's body.has-section-nav padding-top: 138px so testimonials' page-header eyebrow lands at y=120 (matching about/process/portfolio). Desktop only — mobile.css owns the mobile header sizing. */
+@media (min-width: 1281px) {
+  body.has-section-nav .page-header { padding-top: 74px !important; }
+}
 
 
 </style>

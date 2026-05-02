@@ -151,9 +151,11 @@
   height: 315px !important;
 }
 
-/* About page mobile override: 2x2 standard cards grid (overrides mobile.css 1fr default) */
+/* About page mobile override: stack standard cards single-column so titles like
+   "DETAIL OBSESSION" don't clip the viewport. Matches mobile.css default but kept
+   explicit here to defeat any source-order conflicts from this file's other rules. */
 @media (max-width: 1280px) {
-  .standard-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: none !important; margin: 0 !important; }
+  .standard-grid { grid-template-columns: 1fr !important; max-width: none !important; margin: 0 !important; }
   .standard-card { padding: 32px 24px !important; }
 }
 
