@@ -143,10 +143,12 @@
   background-position: center !important;
   background-color: #0a0a0a !important;
 }
-/* Story image: explicit 4:3 aspect ratio matches the source photo, so cover displays edge-to-edge with no crop and no letterbox */
+/* Story image: explicit 420x315 (4:3 to match source photo). Override shared.css's min-height: 480px !important rule that would otherwise force the box taller than needed. */
 .story-image {
   background-size: cover !important;
   background-position: center !important;
+  min-height: 0 !important;
+  height: 315px !important;
 }
 
 /* About page mobile override: 2x2 standard cards grid (overrides mobile.css 1fr default) */
