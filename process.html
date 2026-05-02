@@ -36,12 +36,12 @@
 
     /* Process steps */
     .process { padding: 0 80px 40px; background: #0d0d0d; }
-    .step { display: grid; grid-template-columns: 100px 1fr 1fr; gap: 40px; padding: 28px 0; border-top: 1px solid #1a1a1a; align-items: center; }
+    .step { display: grid; grid-template-columns: 80px 1.4fr 1fr; gap: 32px; padding: 20px 0; border-top: 1px solid #1a1a1a; align-items: center; }
     .step:last-child { border-bottom: 1px solid #1a1a1a; }
-    .step-num { font-family: 'Montserrat', sans-serif; font-size: 64px; font-weight: 900; color: #b01020; opacity: 0.25; line-height: 1; }
+    .step-num { font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: 900; color: #b01020; opacity: 0.25; line-height: 1; }
     .step-content h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
     .step-content p { font-size: 13px; color: #888; line-height: 1.85; }
-    .step-image { height: 170px; background-size: cover; background-position: center; border-left: 4px solid #b01020; }
+    .step-image { height: 220px; background-size: cover; background-position: center; border-left: 4px solid #b01020; }
 
     /* Promise strip */
     .promise { background: #b01020; padding: 32px 80px; text-align: center; }
@@ -109,10 +109,12 @@
   background-position: center !important;
   background-color: #0a0a0a !important;
 }
-/* Step images: fill the box edge-to-edge (no letterboxing) */
+/* Step images: fill the box edge-to-edge (no letterboxing) AND override shared.css's min-height: 480px so the explicit 220px height takes effect */
 .step-image {
   background-size: cover !important;
   background-position: center !important;
+  min-height: 0 !important;
+  height: 220px !important;
 }
 
 
