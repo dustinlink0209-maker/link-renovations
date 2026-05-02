@@ -36,12 +36,12 @@
 
     /* Process steps */
     .process { padding: 0 80px 40px; background: #0d0d0d; }
-    .step { display: grid; grid-template-columns: 80px 1.4fr 1fr; gap: 32px; padding: 20px 0; border-top: 1px solid #1a1a1a; align-items: center; }
+    .step { display: grid; grid-template-columns: 80px 1fr 400px; gap: 32px; padding: 20px 0; border-top: 1px solid #1a1a1a; align-items: center; }
     .step:last-child { border-bottom: 1px solid #1a1a1a; }
     .step-num { font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: 900; color: #b01020; opacity: 0.25; line-height: 1; }
     .step-content h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
     .step-content p { font-size: 13px; color: #888; line-height: 1.85; }
-    .step-image { height: 220px; background-size: cover; background-position: center; border-left: 4px solid #b01020; }
+    .step-image { width: 400px; height: 300px; background-size: cover; background-position: center; border-left: 4px solid #b01020; }
 
     /* Promise strip */
     .promise { background: #b01020; padding: 32px 80px; text-align: center; }
@@ -109,12 +109,13 @@
   background-position: center !important;
   background-color: #0a0a0a !important;
 }
-/* Step images: fill the box edge-to-edge (no letterboxing) AND override shared.css's min-height: 480px so the explicit 220px height takes effect */
+/* Step images: explicit 400x300 (4:3 — matches source photo aspect 1800x1350). Cover displays edge-to-edge with zero crop because container aspect matches image aspect, so full composition is preserved (showerheads, cabinets, patio structure all visible). Override shared.css's min-height: 480px. */
 .step-image {
   background-size: cover !important;
   background-position: center !important;
   min-height: 0 !important;
-  height: 220px !important;
+  width: 400px !important;
+  height: 300px !important;
 }
 
 
