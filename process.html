@@ -109,13 +109,14 @@
   background-position: center !important;
   background-color: #0a0a0a !important;
 }
-/* Step images: explicit 400x300 (4:3 — matches source photo aspect 1800x1350). Cover displays edge-to-edge with zero crop because container aspect matches image aspect, so full composition is preserved (showerheads, cabinets, patio structure all visible). Override shared.css's min-height: 480px. */
+/* Step images: explicit 400x300 (4:3 — matches source photo aspect 1800x1350). Cover displays edge-to-edge with zero crop because container aspect matches image aspect, so full composition is preserved (showerheads, cabinets, patio structure all visible). Override shared.css's min-height: 480px. box-sizing: content-box ensures the 4px border-left adds OUTSIDE the 400px width — without this, border-box would shrink the image area to 396×300 (1.32 aspect) and trim a sliver of the photo. */
 .step-image {
   background-size: cover !important;
   background-position: center !important;
   min-height: 0 !important;
   width: 400px !important;
   height: 300px !important;
+  box-sizing: content-box !important;
 }
 
 
