@@ -6,7 +6,7 @@
    Without this, gallery/featured images with intrinsic width (e.g. 1280px)
    force horizontal scroll on phones, pushing fixed nav elements off-screen. */
 img { max-width: 100%; height: auto; }
-html, body { overflow-x: hidden; }
+html, body { overflow-x: clip; }
 
 /* Polish pass: image fitting, hover transitions, reveal animation */
 .gallery-item img, .featured-item img, .step-image, .about-photo, .story-image, .nick-photo, .nick-card .nick-photo {
