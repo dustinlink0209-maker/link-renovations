@@ -17,20 +17,20 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 .nav-links a { color: #bbb; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
 .nav-links a:hover, .nav-links a.active { color: #fff; }
 .nav-links .cta { background: #b01020; color: #fff; padding: 10px 22px; }
-.page-header { padding-top: 74px; height: 320px; position: relative; display: flex; align-items: flex-end; }
+.page-header { padding-top: 74px; height: 220px; position: relative; display: flex; align-items: flex-end; }
 .page-header-bg { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('photos/bath-11.jpg') center/cover; }
-.page-header-content { position: relative; z-index: 1; padding: 0 80px 56px; max-width: 900px; }
-.page-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 12px; }
-.page-title { font-family: 'Montserrat', sans-serif; font-size: 52px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; line-height: 1; margin-bottom: 18px; }
-.page-sub { font-size: 15px; color: #aaa; line-height: 1.7; max-width: 620px; font-weight: 300; }
+.page-header-content { position: relative; z-index: 1; padding: 0 80px 24px; max-width: 900px; }
+.page-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 8px; }
+.page-title { font-family: 'Montserrat', sans-serif; font-size: 40px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; line-height: 1; margin-bottom: 12px; }
+.page-sub { font-size: 13px; color: #aaa; line-height: 1.6; max-width: 620px; font-weight: 300; }
 
 /* Featured Work strip */
-.featured-strip { padding: 60px 80px 30px; background: #0d0d0d; }
-.featured-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; }
-.featured-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 10px; }
-.featured-title { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
-.featured-sub { font-size: 13px; color: #666; max-width: 360px; line-height: 1.7; text-align: right; }
-.featured-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 220px 220px; gap: 8px; }
+.featured-strip { padding: 40px 80px 24px; background: #0d0d0d; }
+.featured-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
+.featured-tag { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #b01020; margin-bottom: 8px; }
+.featured-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+.featured-sub { font-size: 12px; color: #666; max-width: 360px; line-height: 1.6; text-align: right; }
+.featured-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 180px 180px; gap: 8px; }
 .featured-item { position: relative; overflow: hidden; cursor: pointer; }
 .featured-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
 .featured-item:hover img { transform: scale(1.05); }
@@ -39,17 +39,17 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 .featured-item:hover .featured-item-overlay { opacity: 1; }
 .featured-item-cat { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #b01020; margin-bottom: 6px; }
 .featured-item-label { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #fff; }
-.featured-divider { padding: 30px 80px 0; background: #0d0d0d; }
+.featured-divider { padding: 20px 80px 0; background: #0d0d0d; }
 .featured-divider hr { border: none; border-top: 1px solid #1a1a1a; }
 
-.filter-bar { background: #0d0d0d; border-bottom: 1px solid #1a1a1a; padding: 30px 80px; display: flex; gap: 10px; flex-wrap: wrap; position: sticky; top: 74px; z-index: 100; }
+.filter-bar { background: #0d0d0d; border-bottom: 1px solid #1a1a1a; padding: 20px 80px; display: flex; gap: 10px; flex-wrap: wrap; position: sticky; top: 74px; z-index: 100; }
 .filter-btn { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #888; padding: 11px 22px; border: 1px solid #222; background: transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; border-radius: 999px; }
 .filter-btn:hover { color: #fff; border-color: #444; }
 .filter-btn.active { color: #fff; border-color: #b01020; background: #b01020; }
 .filter-btn .cnt { color: rgba(255,255,255,0.5); font-size: 9px; margin-left: 8px; font-weight: 600; }
 .filter-btn.active .cnt { color: rgba(255,255,255,0.8); }
-.gallery-wrap { padding: 40px 80px 60px; }
-.gallery-count { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 3px; color: #333; text-transform: uppercase; margin-bottom: 24px; }
+.gallery-wrap { padding: 28px 80px 40px; }
+.gallery-count { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 3px; color: #333; text-transform: uppercase; margin-bottom: 16px; }
 .gallery-count span { color: #b01020; }
 .gallery { columns: 3; column-gap: 6px; }
 .gallery-item { break-inside: avoid; margin-bottom: 6px; position: relative; overflow: hidden; cursor: pointer; display: block; }
@@ -99,7 +99,7 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 
 /* Fluid page title: spans width without cutting */
 .page-header-content { padding-left: 40px !important; padding-right: 40px !important; max-width: 100% !important; }
-.page-title { font-size: clamp(32px, 6.5vw, 72px) !important; line-height: 1 !important; word-break: normal; white-space: nowrap; overflow: hidden; }
+.page-title { font-size: clamp(28px, 4vw, 48px) !important; line-height: 1 !important; word-break: normal; white-space: nowrap; overflow: hidden; }
 
 
 /* Larger red eyebrow tags (more readable) */
