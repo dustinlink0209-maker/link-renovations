@@ -42,7 +42,40 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 .featured-divider { padding: 20px 80px 0; background: #0d0d0d; }
 .featured-divider hr { border: none; border-top: 1px solid #1a1a1a; }
 
-.filter-bar { background: #0d0d0d; border-bottom: 1px solid #1a1a1a; padding: 20px 80px; display: flex; gap: 10px; flex-wrap: wrap; position: sticky; top: 74px; z-index: 100; }
+/* Before & After Transformations — visual style matched to Featured Work / Walkthroughs */
+.transformations { padding: 40px 80px 24px; background: #0d0d0d; }
+.transformations-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
+.transformations-header .featured-sub { max-width: 360px; line-height: 1.6; text-align: right; font-size: 12px; color: #666; }
+.transformation-card { background: transparent; max-width: 920px; margin: 0; }
+.transformation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.transformation-pane { position: relative; overflow: hidden; aspect-ratio: 4 / 5; cursor: pointer; }
+.transformation-pane img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; filter: contrast(1.10) brightness(1.04) saturate(1.18); }
+.transformation-pane:hover img { transform: scale(1.05); filter: contrast(1.14) brightness(1.07) saturate(1.22); }
+.transformation-overlay { position: absolute; inset: 0; background: linear-gradient(transparent 50%, rgba(0,0,0,0.85)); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.transformation-pane:hover .transformation-overlay { opacity: 1; }
+.transformation-overlay-cat { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #b01020; margin-bottom: 6px; }
+.transformation-overlay-label { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #fff; }
+.transformation-badge { position: absolute; top: 14px; left: 14px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; padding: 7px 14px; text-transform: uppercase; z-index: 2; }
+.transformation-badge.before { background: rgba(0,0,0,0.78); color: #ddd; border: 1px solid rgba(255,255,255,0.18); }
+.transformation-badge.after { background: #b01020; color: #fff; }
+.transformation-footer { padding: 16px 0 0; display: flex; gap: 18px; align-items: baseline; justify-content: flex-start; }
+.transformation-cat { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; color: #b01020; text-transform: uppercase; }
+.transformation-title { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+.transformation-divider { padding: 12px 80px 0; background: #0d0d0d; }
+.transformation-divider hr { border: none; border-top: 1px solid #1a1a1a; }
+@media (min-width: 1281px) {
+  .transformation-overlay-cat, .transformation-cat { font-size: 12.5px !important; letter-spacing: 2.8px !important; }
+}
+@media (max-width: 1280px) {
+  .transformations { padding: 32px 24px 20px !important; }
+  .transformations-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .transformations-header .featured-sub { text-align: left; max-width: 100%; }
+  .transformation-card { max-width: 100% !important; }
+  .transformation-grid { grid-template-columns: 1fr !important; }
+  .transformation-divider { padding: 12px 24px 0 !important; }
+}
+
+.filter-bar { background: #0d0d0d; border-bottom: 1px solid #1a1a1a; padding: 20px 80px; display: flex; gap: 10px; flex-wrap: wrap; position: sticky; top: 130px; z-index: 100; }
 .filter-btn { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #888; padding: 11px 22px; border: 1px solid #222; background: transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; border-radius: 999px; }
 .filter-btn:hover { color: #fff; border-color: #444; }
 .filter-btn.active { color: #fff; border-color: #b01020; background: #b01020; }
@@ -160,6 +193,7 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 
 <nav class="section-nav" aria-label="Section navigation">
   <a href="#featured" data-link="featured">Featured</a>
+  <a href="#transformations" data-link="transformations">Before &amp; After</a>
   <a href="#walkthroughs" data-link="walkthroughs">Walkthroughs</a>
   <a href="#gallery" data-link="gallery">Gallery</a>
 </nav>
@@ -168,7 +202,7 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
   <div class="page-header-content">
     <div class="page-tag">Selected Work</div>
     <div class="page-title">Portfolio</div>
-    <div class="page-sub">Kitchens, baths, custom builds, and full renovations across Louisville and surrounding communities — every project handled with the same craftsmanship and attention to detail.</div>
+    <div class="page-sub">Custom homes, kitchens, baths, and full renovations across Louisville and surrounding communities — every project handled with the same craftsmanship, top to bottom.</div>
   </div>
 </div>
 
@@ -183,17 +217,17 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
   </div>
   <div class="featured-grid">
     <div class="featured-item" onclick="openFeatured(0)">
-      <img src="photos/bath-05.jpg" alt="">
+      <img src="photos/new-construction-flagship.jpg" alt="">
       <div class="featured-item-overlay">
-        <div class="featured-item-cat">Bathroom</div>
-        <div class="featured-item-label">Onyx Stone Master Shower</div>
+        <div class="featured-item-cat">New Construction</div>
+        <div class="featured-item-label">Custom Ground-Up Home · Louisville, KY</div>
       </div>
     </div>
     <div class="featured-item" onclick="openFeatured(1)">
-      <img src="photos/kitchen-01.jpg" alt="">
+      <img src="photos/featured-kitchen-marble-island.jpg" alt="">
       <div class="featured-item-overlay">
         <div class="featured-item-cat">Kitchen</div>
-        <div class="featured-item-label">Calacatta Marble Kitchen</div>
+        <div class="featured-item-label">Vaulted Beam Kitchen · Marble Island</div>
       </div>
     </div>
     <div class="featured-item" onclick="openFeatured(2)">
@@ -211,15 +245,51 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
       </div>
     </div>
     <div class="featured-item" onclick="openFeatured(4)">
-      <img src="photos/bath-11.jpg" alt="">
+      <img src="photos/featured-living-fireplace.jpg" alt="">
       <div class="featured-item-overlay">
-        <div class="featured-item-cat">Bathroom</div>
-        <div class="featured-item-label">Spa-Style Soaking Tub</div>
+        <div class="featured-item-cat">Living</div>
+        <div class="featured-item-label">Vaulted Beam Living Room · Custom Fireplace</div>
       </div>
     </div>
   </div>
 </div>
 <div class="featured-divider"><hr></div>
+
+<!-- BEFORE & AFTER TRANSFORMATIONS -->
+<div class="transformations" id="transformations">
+  <div class="transformations-header">
+    <div>
+      <div class="featured-tag">Before &amp; After</div>
+      <div class="featured-title">Transformations</div>
+    </div>
+    <div class="featured-sub">Real homes, real transformations. The proof is in the side-by-side.</div>
+  </div>
+  <div class="transformation-card">
+    <div class="transformation-grid">
+      <div class="transformation-pane" onclick="openTransformation(0)">
+        <span class="transformation-badge before">Before</span>
+        <img src="photos/lake-house-bath-before.jpg" alt="Lake House Bathroom — before">
+        <div class="transformation-overlay">
+          <div class="transformation-overlay-cat">Bathroom · Before</div>
+          <div class="transformation-overlay-label">Lake House Bathroom</div>
+        </div>
+      </div>
+      <div class="transformation-pane" onclick="openTransformation(1)">
+        <span class="transformation-badge after">After</span>
+        <img src="photos/lake-house-bath-after.jpg" alt="Lake House Bathroom — after">
+        <div class="transformation-overlay">
+          <div class="transformation-overlay-cat">Bathroom · After</div>
+          <div class="transformation-overlay-label">Lake House Bathroom</div>
+        </div>
+      </div>
+    </div>
+    <div class="transformation-footer">
+      <span class="transformation-cat">Bathroom</span>
+      <span class="transformation-title">Lake House Bathroom</span>
+    </div>
+  </div>
+</div>
+<div class="transformation-divider"><hr></div>
 
 <!-- PROJECT WALKTHROUGHS -->
 <div class="walkthroughs" id="walkthroughs">
@@ -270,15 +340,21 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 </div>
 
 <div class="filter-bar">
-  <button class="filter-btn active" data-filter="all">All Work<span class="cnt">20</span></button>
-  <button class="filter-btn" data-filter="bathrooms">Bathrooms<span class="cnt">13</span></button>
-  <button class="filter-btn" data-filter="kitchens">Kitchens<span class="cnt">1</span></button>
+  <button class="filter-btn active" data-filter="all">All Work<span class="cnt">24</span></button>
+  <button class="filter-btn" data-filter="newconstruction">New Construction<span class="cnt">1</span></button>
+  <button class="filter-btn" data-filter="kitchens">Kitchens<span class="cnt">2</span></button>
+  <button class="filter-btn" data-filter="living">Living<span class="cnt">1</span></button>
+  <button class="filter-btn" data-filter="bathrooms">Bathrooms<span class="cnt">14</span></button>
   <button class="filter-btn" data-filter="decks">Decks &amp; Outdoor<span class="cnt">5</span></button>
   <button class="filter-btn" data-filter="commercial">Commercial<span class="cnt">1</span></button>
 </div>
 <div class="gallery-wrap" id="gallery">
-  <div class="gallery-count">Showing <span class="count-num">20</span> projects</div>
+  <div class="gallery-count">Showing <span class="count-num">24</span> projects</div>
   <div class="gallery" id="gallery">
+      <div class="gallery-item" data-cat="newconstruction" data-caption="Custom Ground-Up Home · Louisville, KY" onclick="openLightbox(this)"><img src="photos/new-construction-flagship.jpg" loading="lazy" alt="newconstruction"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="kitchens" data-caption="Vaulted Beam Kitchen · Marble Island" onclick="openLightbox(this)"><img src="photos/featured-kitchen-marble-island.jpg" loading="lazy" alt="kitchens"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="living" data-caption="Vaulted Beam Living Room · Custom Fireplace" onclick="openLightbox(this)"><img src="photos/featured-living-fireplace.jpg" loading="lazy" alt="living"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
+      <div class="gallery-item" data-cat="bathrooms" data-caption="Lake House Bathroom Transformation · Marble &amp; Onyx" onclick="openLightbox(this)"><img src="photos/lake-house-bath-after.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
       <div class="gallery-item" data-cat="bathrooms" data-caption="Slate Wet Room · Cedar Bench" onclick="openLightbox(this)"><img src="photos/bath-01.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
       <div class="gallery-item" data-cat="bathrooms" data-caption="Master Soaking Tub · Marble Surround" onclick="openLightbox(this)"><img src="photos/bath-02.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
       <div class="gallery-item" data-cat="bathrooms" data-caption="Marble Herringbone Shower · Multi-Head" onclick="openLightbox(this)"><img src="photos/bath-03.jpg" loading="lazy" alt="bathrooms"><div class="gallery-item-overlay"><span class="gallery-item-icon">⊕</span></div></div>
@@ -345,8 +421,10 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 </footer>
 <script>
 const CAT_LABELS = {
+  newconstruction: 'New Construction',
   bathrooms: 'Bathroom',
   kitchens: 'Kitchen',
+  living: 'Living',
   decks: 'Deck / Outdoor',
   commercial: 'Commercial'
 };
@@ -398,6 +476,13 @@ function openLightbox(el) {
 }
 function openFeatured(idx) {
   currentItems = Array.from(document.querySelectorAll('.featured-item'));
+  currentIndex = idx;
+  showLightboxImage();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function openTransformation(idx) {
+  currentItems = Array.from(document.querySelectorAll('.transformation-pane'));
   currentIndex = idx;
   showLightboxImage();
   document.getElementById('lightbox').classList.add('open');
