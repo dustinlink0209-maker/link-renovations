@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Contact — Link Renovations</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" referrerpolicy="no-referrer" crossorigin="anonymous">
   <link rel="stylesheet" href="shared.css">
   <link rel="stylesheet" href="mobile.css">
   <style>
@@ -192,29 +192,7 @@
       <div class="section-rule"></div>
     </div>
 
-    <!--
-      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      FORM RECIPIENT ROUTING — read before changing
-      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      Web3Forms determines the destination email SOLELY by the access_key.
-      There is no `to=` or recipient field in the HTML — see docs.web3forms.com.
-      Each access_key is owned by one Web3Forms account, and submissions land
-      in that account's inbox.
-
-      Two access_keys, one per environment, switched at runtime by hostname:
-        • PROD_ACCESS_KEY → currently routes to dustin.link0209@gmail.com
-        • QC_ACCESS_KEY   → currently the SAME key (so QC also goes to Dustin
-                            until Nick registers his own Web3Forms account)
-
-      To route QC submissions to Nick (without touching production):
-        1. Have Nick sign up at https://web3forms.com with nick@linkrenovations.com
-        2. Replace QC_ACCESS_KEY below with the new key Nick gets
-        3. Redeploy preview:
-             cd /Users/dustinlink/link-renovations-website
-             npx wrangler deploy --env preview
-        4. Test on preview URL, then promote when ready by also swapping PROD_ACCESS_KEY
-      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    -->
+    <!-- Form submission handled by Web3Forms. Operational notes intentionally not in source. -->
     <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="aa067dfd-2ea0-4687-879e-94cb5cbf7de6"
         data-prod-key="aa067dfd-2ea0-4687-879e-94cb5cbf7de6"
@@ -264,7 +242,7 @@
         <textarea name="message" required placeholder="Describe your vision, timeline, and any specific details..."></textarea>
       </div>
 
-      <input type="hidden" name="redirect" value="https://link-renovations.dustin-link0209.workers.dev/thank-you.html">
+      <input type="hidden" name="redirect" value="https://linkrenovations.com/thank-you.html">
 
       <button type="submit" class="submit-btn">Submit For Free Estimate →</button>
       <div class="form-note">* Required fields. We'll respond within 24 hours.</div>
@@ -351,8 +329,7 @@
 </div>
 <script src="shared.js"></script>
 <script>
-  // Form recipient routing: pick prod vs QC access_key based on hostname.
-  // See the "FORM RECIPIENT ROUTING" comment block above the form for details.
+  // Pick prod vs QC access_key by hostname (data-attrs set on the hidden input).
   (function() {
     var input = document.querySelector('input[name="access_key"]');
     if (!input) return;
