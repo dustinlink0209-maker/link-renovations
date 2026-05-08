@@ -262,6 +262,47 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 </div>
 <div class="featured-divider"><hr></div>
 
+<!-- GALLERY HERO MARQUEE — full-bleed left-to-right filmstrip -->
+<div class="gallery-hero-section">
+  <div class="gallery-hero-header">
+    <div>
+      <div class="featured-tag">The Gallery</div>
+      <div class="featured-title">Browse The Work</div>
+    </div>
+    <div class="featured-sub">A continuous look at recent builds. Hover to pause, click any photo to open it full-size.</div>
+  </div>
+</div>
+<div class="gallery-hero-marquee" id="galleryMarquee" aria-label="Recent work showcase">
+  <div class="gallery-hero-track">
+    <!-- First copy of 12 photos -->
+    <div class="gallery-hero-slide-item" data-idx="0"><img src="photos/hero-1-newconstruction.jpg" alt="Custom ground-up home in Louisville, KY"><div class="gallery-hero-caption"><span class="gallery-hero-cat">New Construction</span><span class="gallery-hero-title">Custom Ground-Up Home</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="1"><img src="photos/hero-2-kitchen.jpg" alt="Vaulted beam kitchen with marble island"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Kitchen</span><span class="gallery-hero-title">Vaulted Beam · Marble Island</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="2"><img src="photos/hero-3-calacatta-tub.jpg" alt="Calacatta bath with freestanding tub"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Calacatta · Freestanding Tub</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="3"><img src="photos/hero-4-living.jpg" alt="Vaulted beam living room with custom fireplace"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Living</span><span class="gallery-hero-title">Vaulted Beam · Custom Fireplace</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="4"><img src="photos/hero-5-herringbone.jpg" alt="Carrara bench with herringbone detail"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Carrara · Herringbone Detail</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="5"><img src="photos/hero-6-outdoor.jpg" alt="Custom outdoor lounge with stone wall"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Lounge · Stone Wall</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="6"><img src="photos/hero-7-frameless-glass.jpg" alt="Frameless glass shower with hexagon tile floor"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Frameless Glass · Hexagon Tile</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="7"><img src="photos/hero-8-slate-wetroom.jpg" alt="Slate wet room with cedar bench"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Slate Wet Room · Cedar Bench</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="8"><img src="photos/hero-9-outdoor-kitchen.jpg" alt="Outdoor kitchen with stone surround"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Kitchen · Stone Surround</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="9"><img src="photos/hero-10-white-marble.jpg" alt="White marble walk-in shower with pebble floor"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">White Marble · Pebble Floor</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="10"><img src="photos/hero-11-commercial.jpg" alt="Commercial build with custom finishes"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="11"><img src="photos/hero-12-outdoor-deck.jpg" alt="Custom deck with stone detail"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
+    <!-- Duplicate copy for seamless loop -->
+    <div class="gallery-hero-slide-item" data-idx="0" aria-hidden="true"><img src="photos/hero-1-newconstruction.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">New Construction</span><span class="gallery-hero-title">Custom Ground-Up Home</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="1" aria-hidden="true"><img src="photos/hero-2-kitchen.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Kitchen</span><span class="gallery-hero-title">Vaulted Beam · Marble Island</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="2" aria-hidden="true"><img src="photos/hero-3-calacatta-tub.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Calacatta · Freestanding Tub</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="3" aria-hidden="true"><img src="photos/hero-4-living.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Living</span><span class="gallery-hero-title">Vaulted Beam · Custom Fireplace</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="4" aria-hidden="true"><img src="photos/hero-5-herringbone.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Carrara · Herringbone Detail</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="5" aria-hidden="true"><img src="photos/hero-6-outdoor.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Lounge · Stone Wall</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="6" aria-hidden="true"><img src="photos/hero-7-frameless-glass.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Frameless Glass · Hexagon Tile</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="7" aria-hidden="true"><img src="photos/hero-8-slate-wetroom.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Slate Wet Room · Cedar Bench</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="8" aria-hidden="true"><img src="photos/hero-9-outdoor-kitchen.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Kitchen · Stone Surround</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="9" aria-hidden="true"><img src="photos/hero-10-white-marble.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">White Marble · Pebble Floor</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="10" aria-hidden="true"><img src="photos/hero-11-commercial.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="11" aria-hidden="true"><img src="photos/hero-12-outdoor-deck.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
+  </div>
+</div>
+
 <!-- PROJECT WALKTHROUGHS -->
 <div class="walkthroughs" id="walkthroughs">
   <div class="walkthroughs-header">
@@ -310,46 +351,6 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
   <video id="videoPlayer" controls playsinline></video>
 </div>
 
-<!-- GALLERY HERO MARQUEE — full-bleed left-to-right filmstrip -->
-<div class="gallery-hero-section">
-  <div class="gallery-hero-header">
-    <div>
-      <div class="featured-tag">The Gallery</div>
-      <div class="featured-title">Browse The Work</div>
-    </div>
-    <div class="featured-sub">A continuous look at recent builds. Hover to pause, click any photo to open it full-size.</div>
-  </div>
-</div>
-<div class="gallery-hero-marquee" id="galleryMarquee" aria-label="Recent work showcase">
-  <div class="gallery-hero-track">
-    <!-- First copy of 12 photos -->
-    <div class="gallery-hero-slide-item" data-idx="0"><img src="photos/hero-1-newconstruction.jpg" alt="Custom ground-up home in Louisville, KY"><div class="gallery-hero-caption"><span class="gallery-hero-cat">New Construction</span><span class="gallery-hero-title">Custom Ground-Up Home</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="1"><img src="photos/hero-2-kitchen.jpg" alt="Vaulted beam kitchen with marble island"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Kitchen</span><span class="gallery-hero-title">Vaulted Beam · Marble Island</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="2"><img src="photos/hero-3-calacatta-tub.jpg" alt="Calacatta bath with freestanding tub"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Calacatta · Freestanding Tub</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="3"><img src="photos/hero-4-living.jpg" alt="Vaulted beam living room with custom fireplace"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Living</span><span class="gallery-hero-title">Vaulted Beam · Custom Fireplace</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="4"><img src="photos/hero-5-herringbone.jpg" alt="Carrara bench with herringbone detail"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Carrara · Herringbone Detail</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="5"><img src="photos/hero-6-outdoor.jpg" alt="Custom outdoor lounge with stone wall"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Lounge · Stone Wall</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="6"><img src="photos/hero-7-frameless-glass.jpg" alt="Frameless glass shower with hexagon tile floor"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Frameless Glass · Hexagon Tile</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="7"><img src="photos/hero-8-slate-wetroom.jpg" alt="Slate wet room with cedar bench"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Slate Wet Room · Cedar Bench</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="8"><img src="photos/hero-9-outdoor-kitchen.jpg" alt="Outdoor kitchen with stone surround"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Kitchen · Stone Surround</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="9"><img src="photos/hero-10-white-marble.jpg" alt="White marble walk-in shower with pebble floor"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">White Marble · Pebble Floor</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="10"><img src="photos/hero-11-commercial.jpg" alt="Commercial build with custom finishes"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="11"><img src="photos/hero-12-outdoor-deck.jpg" alt="Custom deck with stone detail"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
-    <!-- Duplicate copy for seamless loop -->
-    <div class="gallery-hero-slide-item" data-idx="0" aria-hidden="true"><img src="photos/hero-1-newconstruction.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">New Construction</span><span class="gallery-hero-title">Custom Ground-Up Home</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="1" aria-hidden="true"><img src="photos/hero-2-kitchen.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Kitchen</span><span class="gallery-hero-title">Vaulted Beam · Marble Island</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="2" aria-hidden="true"><img src="photos/hero-3-calacatta-tub.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Calacatta · Freestanding Tub</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="3" aria-hidden="true"><img src="photos/hero-4-living.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Living</span><span class="gallery-hero-title">Vaulted Beam · Custom Fireplace</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="4" aria-hidden="true"><img src="photos/hero-5-herringbone.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Carrara · Herringbone Detail</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="5" aria-hidden="true"><img src="photos/hero-6-outdoor.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Lounge · Stone Wall</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="6" aria-hidden="true"><img src="photos/hero-7-frameless-glass.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Frameless Glass · Hexagon Tile</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="7" aria-hidden="true"><img src="photos/hero-8-slate-wetroom.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Slate Wet Room · Cedar Bench</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="8" aria-hidden="true"><img src="photos/hero-9-outdoor-kitchen.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Kitchen · Stone Surround</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="9" aria-hidden="true"><img src="photos/hero-10-white-marble.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">White Marble · Pebble Floor</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="10" aria-hidden="true"><img src="photos/hero-11-commercial.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="11" aria-hidden="true"><img src="photos/hero-12-outdoor-deck.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
-  </div>
-</div>
 
 <div class="filter-bar">
   <button class="filter-btn active" data-filter="all">All Work<span class="cnt">24</span></button>
