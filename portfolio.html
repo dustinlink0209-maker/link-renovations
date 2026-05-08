@@ -42,6 +42,43 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 .featured-divider { padding: 20px 80px 0; background: #0d0d0d; }
 .featured-divider hr { border: none; border-top: 1px solid #1a1a1a; }
 
+/* Gallery hero carousel — auto-advancing showcase above the filter+grid */
+.gallery-hero-section { background: #0d0d0d; padding: 56px 80px 32px; }
+.gallery-hero-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; gap: 30px; }
+.gallery-hero-header .featured-sub { max-width: 360px; line-height: 1.6; text-align: right; font-size: 12px; color: #666; }
+.gallery-hero { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #000; cursor: pointer; }
+.gallery-hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; pointer-events: none; }
+.gallery-hero-slide.active { opacity: 1; pointer-events: auto; }
+.gallery-hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.10) brightness(1.04) saturate(1.18); }
+.gallery-hero-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 80px 48px 36px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); pointer-events: none; }
+.gallery-hero-cat { display: block; font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 3px; color: #b01020; text-transform: uppercase; margin-bottom: 8px; }
+.gallery-hero-title { display: block; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: 1px; color: #fff; text-transform: uppercase; line-height: 1.2; }
+.gallery-hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.18); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s, border-color 0.2s; z-index: 3; }
+.gallery-hero-arrow:hover { background: #b01020; border-color: #b01020; transform: translateY(-50%) scale(1.06); }
+.gallery-hero-arrow.prev { left: 24px; }
+.gallery-hero-arrow.next { right: 24px; }
+.gallery-hero-arrow svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.gallery-hero-dots { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); display: flex; gap: 8px; z-index: 3; }
+.gallery-hero-dot { width: 9px; height: 9px; border-radius: 999px; background: rgba(255,255,255,0.45); border: none; cursor: pointer; padding: 0; transition: width 0.3s, background 0.2s; }
+.gallery-hero-dot:hover { background: rgba(255,255,255,0.75); }
+.gallery-hero-dot.active { width: 28px; background: #fff; border-radius: 4px; }
+.gallery-hero-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,0.08); overflow: hidden; z-index: 3; }
+.gallery-hero-progress-bar { height: 100%; background: #b01020; width: 0; transition: width 5s linear; }
+.gallery-hero.paused .gallery-hero-progress-bar { transition: none; }
+
+@media (max-width: 1280px) {
+  .gallery-hero-section { padding: 36px 24px 24px; }
+  .gallery-hero-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .gallery-hero-header .featured-sub { text-align: left; max-width: 100%; }
+  .gallery-hero { aspect-ratio: 4 / 3; }
+  .gallery-hero-caption { padding: 60px 22px 28px; }
+  .gallery-hero-title { font-size: 17px; }
+  .gallery-hero-arrow { width: 42px; height: 42px; }
+  .gallery-hero-arrow.prev { left: 12px; }
+  .gallery-hero-arrow.next { right: 12px; }
+  .gallery-hero-arrow svg { width: 18px; height: 18px; }
+  .gallery-hero-dots { bottom: 14px; }
+}
 
 .filter-bar { background: #0d0d0d; border-bottom: 1px solid #1a1a1a; padding: 20px 80px; display: flex; gap: 10px; flex-wrap: wrap; position: sticky; top: 130px; z-index: 100; }
 .filter-btn { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #888; padding: 11px 22px; border: 1px solid #222; background: transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; border-radius: 999px; }
@@ -270,6 +307,76 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
   <video id="videoPlayer" controls playsinline></video>
 </div>
 
+<!-- GALLERY HERO CAROUSEL -->
+<div class="gallery-hero-section">
+  <div class="gallery-hero-header">
+    <div>
+      <div class="featured-tag">The Gallery</div>
+      <div class="featured-title">Browse The Work</div>
+    </div>
+    <div class="featured-sub">A rotating look at recent builds. Click any photo to open it full-size, or scroll on to filter by room.</div>
+  </div>
+  <div class="gallery-hero" id="galleryHero" data-interval="5000">
+    <div class="gallery-hero-slide active" data-img="photos/new-construction-flagship.jpg">
+      <img src="photos/new-construction-flagship.jpg" alt="Custom ground-up home in Louisville, KY">
+      <div class="gallery-hero-caption">
+        <span class="gallery-hero-cat">New Construction</span>
+        <span class="gallery-hero-title">Custom Ground-Up Home · Louisville, KY</span>
+      </div>
+    </div>
+    <div class="gallery-hero-slide" data-img="photos/featured-kitchen-marble-island.jpg">
+      <img src="photos/featured-kitchen-marble-island.jpg" alt="Vaulted beam kitchen with marble island">
+      <div class="gallery-hero-caption">
+        <span class="gallery-hero-cat">Kitchen</span>
+        <span class="gallery-hero-title">Vaulted Beam Kitchen · Marble Island</span>
+      </div>
+    </div>
+    <div class="gallery-hero-slide" data-img="photos/bath-09.jpg">
+      <img src="photos/bath-09.jpg" alt="Calacatta bath with freestanding tub">
+      <div class="gallery-hero-caption">
+        <span class="gallery-hero-cat">Bathroom</span>
+        <span class="gallery-hero-title">Calacatta Bath · Freestanding Tub</span>
+      </div>
+    </div>
+    <div class="gallery-hero-slide" data-img="photos/featured-living-fireplace.jpg">
+      <img src="photos/featured-living-fireplace.jpg" alt="Vaulted beam living room with custom fireplace">
+      <div class="gallery-hero-caption">
+        <span class="gallery-hero-cat">Living</span>
+        <span class="gallery-hero-title">Vaulted Beam Living · Custom Fireplace</span>
+      </div>
+    </div>
+    <div class="gallery-hero-slide" data-img="photos/bath-04.jpg">
+      <img src="photos/bath-04.jpg" alt="Carrara bench with herringbone detail">
+      <div class="gallery-hero-caption">
+        <span class="gallery-hero-cat">Bathroom</span>
+        <span class="gallery-hero-title">Carrara Bench · Herringbone Detail</span>
+      </div>
+    </div>
+    <div class="gallery-hero-slide" data-img="photos/outdoor-01.jpg">
+      <img src="photos/outdoor-01.jpg" alt="Custom outdoor lounge with stone wall">
+      <div class="gallery-hero-caption">
+        <span class="gallery-hero-cat">Outdoor Living</span>
+        <span class="gallery-hero-title">Custom Outdoor Lounge · Stone Wall</span>
+      </div>
+    </div>
+    <button class="gallery-hero-arrow prev" type="button" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <button class="gallery-hero-arrow next" type="button" aria-label="Next slide">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <div class="gallery-hero-dots" role="tablist">
+      <button class="gallery-hero-dot active" type="button" aria-label="Slide 1"></button>
+      <button class="gallery-hero-dot" type="button" aria-label="Slide 2"></button>
+      <button class="gallery-hero-dot" type="button" aria-label="Slide 3"></button>
+      <button class="gallery-hero-dot" type="button" aria-label="Slide 4"></button>
+      <button class="gallery-hero-dot" type="button" aria-label="Slide 5"></button>
+      <button class="gallery-hero-dot" type="button" aria-label="Slide 6"></button>
+    </div>
+    <div class="gallery-hero-progress"><div class="gallery-hero-progress-bar"></div></div>
+  </div>
+</div>
+
 <div class="filter-bar">
   <button class="filter-btn active" data-filter="all">All Work<span class="cnt">24</span></button>
   <button class="filter-btn" data-filter="newconstruction">New Construction<span class="cnt">1</span></button>
@@ -432,6 +539,90 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') shiftLightbox(-1);
   if (e.key === 'Escape') closeLightbox({target: document.getElementById('lightbox')});
 });
+
+// ─── Gallery hero carousel ───
+(function () {
+  const hero = document.getElementById('galleryHero');
+  if (!hero) return;
+  const slides = Array.from(hero.querySelectorAll('.gallery-hero-slide'));
+  const dots = Array.from(hero.querySelectorAll('.gallery-hero-dot'));
+  const prev = hero.querySelector('.gallery-hero-arrow.prev');
+  const next = hero.querySelector('.gallery-hero-arrow.next');
+  const bar = hero.querySelector('.gallery-hero-progress-bar');
+  const interval = parseInt(hero.dataset.interval || '5000', 10);
+  let idx = 0;
+  let timer = null;
+  let paused = false;
+
+  function setActive(n) {
+    slides[idx].classList.remove('active');
+    dots[idx].classList.remove('active');
+    idx = (n + slides.length) % slides.length;
+    slides[idx].classList.add('active');
+    dots[idx].classList.add('active');
+    resetProgress();
+  }
+  function resetProgress() {
+    if (!bar) return;
+    hero.classList.add('paused');
+    bar.style.width = '0%';
+    // force reflow so the next width transition restarts cleanly
+    void bar.offsetWidth;
+    hero.classList.remove('paused');
+    if (!paused) bar.style.width = '100%';
+  }
+  function tick() { setActive(idx + 1); }
+  function start() {
+    stop();
+    paused = false;
+    if (bar) bar.style.width = '100%';
+    timer = setInterval(tick, interval);
+  }
+  function stop() {
+    if (timer) { clearInterval(timer); timer = null; }
+    paused = true;
+    if (bar) {
+      // freeze the bar where it is (no transition)
+      const computed = getComputedStyle(bar).width;
+      hero.classList.add('paused');
+      bar.style.width = computed;
+    }
+  }
+
+  prev.addEventListener('click', e => { e.stopPropagation(); setActive(idx - 1); start(); });
+  next.addEventListener('click', e => { e.stopPropagation(); setActive(idx + 1); start(); });
+  dots.forEach((d, i) => d.addEventListener('click', e => { e.stopPropagation(); setActive(i); start(); }));
+
+  // Pause on hover, resume on leave (desktop). Touch users get autoplay always.
+  hero.addEventListener('mouseenter', stop);
+  hero.addEventListener('mouseleave', start);
+
+  // Click slide → open the existing lightbox at that image
+  hero.addEventListener('click', e => {
+    if (e.target.closest('.gallery-hero-arrow') || e.target.closest('.gallery-hero-dot')) return;
+    const slide = slides[idx];
+    if (!slide) return;
+    const img = slide.querySelector('img');
+    if (!img) return;
+    // Reuse the existing lightbox machinery — slides are DOM nodes with imgs inside,
+    // which is exactly what showLightboxImage() expects.
+    currentItems = slides;
+    currentIndex = idx;
+    showLightboxImage();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Pause autoplay when the carousel scrolls out of view
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => entry.isIntersecting ? start() : stop());
+    }, { threshold: 0.25 });
+    io.observe(hero);
+  } else {
+    start();
+  }
+})();
 </script>
 
 <button class="nav-hamburger" aria-label="Menu" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
