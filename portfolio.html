@@ -42,42 +42,43 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 .featured-divider { padding: 20px 80px 0; background: #0d0d0d; }
 .featured-divider hr { border: none; border-top: 1px solid #1a1a1a; }
 
-/* Gallery hero carousel — auto-advancing showcase above the filter+grid */
-.gallery-hero-section { background: #0d0d0d; padding: 56px 80px 32px; }
+/* Gallery hero marquee — full-bleed left-to-right filmstrip above the filter+grid */
+.gallery-hero-section { background: #0d0d0d; padding: 56px 80px 24px; }
 .gallery-hero-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; gap: 30px; }
 .gallery-hero-header .featured-sub { max-width: 360px; line-height: 1.6; text-align: right; font-size: 12px; color: #666; }
-.gallery-hero { position: relative; width: 100%; max-width: 720px; margin: 0 auto; aspect-ratio: 4 / 5; overflow: hidden; background: #000; cursor: pointer; }
-.gallery-hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
-.gallery-hero-slide.active { opacity: 1; pointer-events: auto; }
-.gallery-hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.10) brightness(1.04) saturate(1.18); }
-.gallery-hero-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 80px 48px 36px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); pointer-events: none; }
+
+.gallery-hero-marquee { position: relative; width: 100%; overflow: hidden; background: #0d0d0d; padding-bottom: 36px; }
+.gallery-hero-marquee::before, .gallery-hero-marquee::after { content: ""; position: absolute; top: 0; bottom: 36px; width: 80px; z-index: 2; pointer-events: none; }
+.gallery-hero-marquee::before { left: 0; background: linear-gradient(to right, #0d0d0d, transparent); }
+.gallery-hero-marquee::after { right: 0; background: linear-gradient(to left, #0d0d0d, transparent); }
+.gallery-hero-track { display: flex; width: max-content; animation: hero-scroll 60s linear infinite; will-change: transform; }
+.gallery-hero-marquee:hover .gallery-hero-track { animation-play-state: paused; }
+.gallery-hero-slide-item { flex: 0 0 420px; margin-right: 12px; aspect-ratio: 4 / 5; position: relative; overflow: hidden; cursor: pointer; background: #000; }
+.gallery-hero-slide-item img { width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.10) brightness(1.04) saturate(1.18); transition: filter 0.3s, transform 0.5s; }
+.gallery-hero-slide-item:hover img { filter: contrast(1.14) brightness(1.07) saturate(1.22); transform: scale(1.04); }
+.gallery-hero-caption { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px 24px; background: linear-gradient(transparent 55%, rgba(0,0,0,0.85)); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.gallery-hero-slide-item:hover .gallery-hero-caption { opacity: 1; }
 .gallery-hero-cat { display: block; font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 3px; color: #b01020; text-transform: uppercase; margin-bottom: 8px; }
-.gallery-hero-title { display: block; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: 1px; color: #fff; text-transform: uppercase; line-height: 1.2; }
-.gallery-hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.18); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s, border-color 0.2s; z-index: 3; }
-.gallery-hero-arrow:hover { background: #b01020; border-color: #b01020; transform: translateY(-50%) scale(1.06); }
-.gallery-hero-arrow.prev { left: 24px; }
-.gallery-hero-arrow.next { right: 24px; }
-.gallery-hero-arrow svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.gallery-hero-dots { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); display: flex; gap: 8px; z-index: 3; }
-.gallery-hero-dot { width: 9px; height: 9px; border-radius: 999px; background: rgba(255,255,255,0.45); border: none; cursor: pointer; padding: 0; transition: width 0.3s, background 0.2s; }
-.gallery-hero-dot:hover { background: rgba(255,255,255,0.75); }
-.gallery-hero-dot.active { width: 28px; background: #fff; border-radius: 4px; }
-.gallery-hero-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,0.08); overflow: hidden; z-index: 3; }
-.gallery-hero-progress-bar { height: 100%; background: #b01020; width: 0; transition: width 2s linear; }
-.gallery-hero.paused .gallery-hero-progress-bar { transition: none; }
+.gallery-hero-title { display: block; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px; color: #fff; text-transform: uppercase; line-height: 1.25; }
+
+@keyframes hero-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-hero-track { animation: none; }
+}
 
 @media (max-width: 1280px) {
-  .gallery-hero-section { padding: 36px 24px 24px; }
+  .gallery-hero-section { padding: 36px 24px 16px; }
   .gallery-hero-header { flex-direction: column; align-items: flex-start; gap: 8px; }
   .gallery-hero-header .featured-sub { text-align: left; max-width: 100%; }
-  .gallery-hero { aspect-ratio: 4 / 5; max-width: 100%; }
-  .gallery-hero-caption { padding: 60px 22px 28px; }
-  .gallery-hero-title { font-size: 17px; }
-  .gallery-hero-arrow { width: 42px; height: 42px; }
-  .gallery-hero-arrow.prev { left: 12px; }
-  .gallery-hero-arrow.next { right: 12px; }
-  .gallery-hero-arrow svg { width: 18px; height: 18px; }
-  .gallery-hero-dots { bottom: 14px; }
+  .gallery-hero-slide-item { flex: 0 0 320px; margin-right: 10px; }
+  .gallery-hero-marquee::before, .gallery-hero-marquee::after { width: 40px; }
+  .gallery-hero-title { font-size: 14px; }
+}
+@media (max-width: 600px) {
+  .gallery-hero-slide-item { flex: 0 0 260px; }
 }
 
 .filter-bar { background: #0d0d0d; border-bottom: 1px solid #1a1a1a; padding: 20px 80px; display: flex; gap: 10px; flex-wrap: wrap; position: sticky; top: 130px; z-index: 100; }
@@ -307,121 +308,44 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
   <video id="videoPlayer" controls playsinline></video>
 </div>
 
-<!-- GALLERY HERO CAROUSEL -->
+<!-- GALLERY HERO MARQUEE — full-bleed left-to-right filmstrip -->
 <div class="gallery-hero-section">
   <div class="gallery-hero-header">
     <div>
       <div class="featured-tag">The Gallery</div>
       <div class="featured-title">Browse The Work</div>
     </div>
-    <div class="featured-sub">A rotating look at recent builds. Click any photo to open it full-size, or scroll on to filter by room.</div>
+    <div class="featured-sub">A continuous look at recent builds. Hover to pause, click any photo to open it full-size.</div>
   </div>
-  <div class="gallery-hero" id="galleryHero" data-interval="2000">
-    <div class="gallery-hero-slide active">
-      <img src="photos/hero-1-newconstruction.jpg" alt="Custom ground-up home in Louisville, KY">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">New Construction</span>
-        <span class="gallery-hero-title">Custom Ground-Up Home · Louisville, KY</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-2-kitchen.jpg" alt="Vaulted beam kitchen with marble island">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Kitchen</span>
-        <span class="gallery-hero-title">Vaulted Beam Kitchen · Marble Island</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-3-calacatta-tub.jpg" alt="Calacatta bath with freestanding tub">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Bathroom</span>
-        <span class="gallery-hero-title">Calacatta Bath · Freestanding Tub</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-4-living.jpg" alt="Vaulted beam living room with custom fireplace">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Living</span>
-        <span class="gallery-hero-title">Vaulted Beam Living · Custom Fireplace</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-5-herringbone.jpg" alt="Carrara bench with herringbone detail">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Bathroom</span>
-        <span class="gallery-hero-title">Carrara Bench · Herringbone Detail</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-6-outdoor.jpg" alt="Custom outdoor lounge with stone wall">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Outdoor Living</span>
-        <span class="gallery-hero-title">Custom Outdoor Lounge · Stone Wall</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-7-frameless-glass.jpg" alt="Frameless glass shower with hexagon tile floor">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Bathroom</span>
-        <span class="gallery-hero-title">Frameless Glass · Hexagon Tile</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-8-slate-wetroom.jpg" alt="Slate wet room with cedar bench">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Bathroom</span>
-        <span class="gallery-hero-title">Slate Wet Room · Cedar Bench</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-9-outdoor-kitchen.jpg" alt="Outdoor kitchen with stone surround">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Outdoor Living</span>
-        <span class="gallery-hero-title">Outdoor Kitchen · Stone Surround</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-10-white-marble.jpg" alt="White marble walk-in shower with pebble floor">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Bathroom</span>
-        <span class="gallery-hero-title">White Marble Walk-In · Pebble Floor</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-11-commercial.jpg" alt="Commercial build with custom finishes">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Commercial</span>
-        <span class="gallery-hero-title">Commercial Build · Custom Finishes</span>
-      </div>
-    </div>
-    <div class="gallery-hero-slide">
-      <img src="photos/hero-12-outdoor-deck.jpg" alt="Custom deck with stone detail">
-      <div class="gallery-hero-caption">
-        <span class="gallery-hero-cat">Outdoor Living</span>
-        <span class="gallery-hero-title">Custom Deck · Stone Detail</span>
-      </div>
-    </div>
-    <button class="gallery-hero-arrow prev" type="button" aria-label="Previous slide">
-      <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
-    </button>
-    <button class="gallery-hero-arrow next" type="button" aria-label="Next slide">
-      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-    </button>
-    <div class="gallery-hero-dots" role="tablist">
-      <button class="gallery-hero-dot active" type="button" aria-label="Slide 1"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 2"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 3"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 4"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 5"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 6"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 7"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 8"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 9"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 10"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 11"></button>
-      <button class="gallery-hero-dot" type="button" aria-label="Slide 12"></button>
-    </div>
-    <div class="gallery-hero-progress"><div class="gallery-hero-progress-bar"></div></div>
+</div>
+<div class="gallery-hero-marquee" id="galleryMarquee" aria-label="Recent work showcase">
+  <div class="gallery-hero-track">
+    <!-- First copy of 12 photos -->
+    <div class="gallery-hero-slide-item" data-idx="0"><img src="photos/hero-1-newconstruction.jpg" alt="Custom ground-up home in Louisville, KY"><div class="gallery-hero-caption"><span class="gallery-hero-cat">New Construction</span><span class="gallery-hero-title">Custom Ground-Up Home</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="1"><img src="photos/hero-2-kitchen.jpg" alt="Vaulted beam kitchen with marble island"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Kitchen</span><span class="gallery-hero-title">Vaulted Beam · Marble Island</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="2"><img src="photos/hero-3-calacatta-tub.jpg" alt="Calacatta bath with freestanding tub"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Calacatta · Freestanding Tub</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="3"><img src="photos/hero-4-living.jpg" alt="Vaulted beam living room with custom fireplace"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Living</span><span class="gallery-hero-title">Vaulted Beam · Custom Fireplace</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="4"><img src="photos/hero-5-herringbone.jpg" alt="Carrara bench with herringbone detail"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Carrara · Herringbone Detail</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="5"><img src="photos/hero-6-outdoor.jpg" alt="Custom outdoor lounge with stone wall"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Lounge · Stone Wall</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="6"><img src="photos/hero-7-frameless-glass.jpg" alt="Frameless glass shower with hexagon tile floor"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Frameless Glass · Hexagon Tile</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="7"><img src="photos/hero-8-slate-wetroom.jpg" alt="Slate wet room with cedar bench"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Slate Wet Room · Cedar Bench</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="8"><img src="photos/hero-9-outdoor-kitchen.jpg" alt="Outdoor kitchen with stone surround"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Kitchen · Stone Surround</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="9"><img src="photos/hero-10-white-marble.jpg" alt="White marble walk-in shower with pebble floor"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">White Marble · Pebble Floor</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="10"><img src="photos/hero-11-commercial.jpg" alt="Commercial build with custom finishes"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="11"><img src="photos/hero-12-outdoor-deck.jpg" alt="Custom deck with stone detail"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
+    <!-- Duplicate copy for seamless loop -->
+    <div class="gallery-hero-slide-item" data-idx="0" aria-hidden="true"><img src="photos/hero-1-newconstruction.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">New Construction</span><span class="gallery-hero-title">Custom Ground-Up Home</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="1" aria-hidden="true"><img src="photos/hero-2-kitchen.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Kitchen</span><span class="gallery-hero-title">Vaulted Beam · Marble Island</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="2" aria-hidden="true"><img src="photos/hero-3-calacatta-tub.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Calacatta · Freestanding Tub</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="3" aria-hidden="true"><img src="photos/hero-4-living.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Living</span><span class="gallery-hero-title">Vaulted Beam · Custom Fireplace</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="4" aria-hidden="true"><img src="photos/hero-5-herringbone.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Carrara · Herringbone Detail</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="5" aria-hidden="true"><img src="photos/hero-6-outdoor.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Lounge · Stone Wall</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="6" aria-hidden="true"><img src="photos/hero-7-frameless-glass.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Frameless Glass · Hexagon Tile</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="7" aria-hidden="true"><img src="photos/hero-8-slate-wetroom.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Slate Wet Room · Cedar Bench</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="8" aria-hidden="true"><img src="photos/hero-9-outdoor-kitchen.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Kitchen · Stone Surround</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="9" aria-hidden="true"><img src="photos/hero-10-white-marble.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">White Marble · Pebble Floor</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="10" aria-hidden="true"><img src="photos/hero-11-commercial.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
+    <div class="gallery-hero-slide-item" data-idx="11" aria-hidden="true"><img src="photos/hero-12-outdoor-deck.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
   </div>
 </div>
 
@@ -588,88 +512,25 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightbox({target: document.getElementById('lightbox')});
 });
 
-// ─── Gallery hero carousel ───
+// ─── Gallery hero marquee — click-to-open-lightbox ───
 (function () {
-  const hero = document.getElementById('galleryHero');
-  if (!hero) return;
-  const slides = Array.from(hero.querySelectorAll('.gallery-hero-slide'));
-  const dots = Array.from(hero.querySelectorAll('.gallery-hero-dot'));
-  const prev = hero.querySelector('.gallery-hero-arrow.prev');
-  const next = hero.querySelector('.gallery-hero-arrow.next');
-  const bar = hero.querySelector('.gallery-hero-progress-bar');
-  const interval = parseInt(hero.dataset.interval || '5000', 10);
-  let idx = 0;
-  let timer = null;
-  let paused = false;
+  const marquee = document.getElementById('galleryMarquee');
+  if (!marquee) return;
+  // The marquee track contains 24 items (12 unique × 2 copies for seamless loop).
+  // Use only the first 12 as the canonical list passed to the lightbox.
+  const allItems = Array.from(marquee.querySelectorAll('.gallery-hero-slide-item'));
+  const uniqueItems = allItems.slice(0, 12);
 
-  function setActive(n) {
-    slides[idx].classList.remove('active');
-    dots[idx].classList.remove('active');
-    idx = (n + slides.length) % slides.length;
-    slides[idx].classList.add('active');
-    dots[idx].classList.add('active');
-    resetProgress();
-  }
-  function resetProgress() {
-    if (!bar) return;
-    hero.classList.add('paused');
-    bar.style.width = '0%';
-    // force reflow so the next width transition restarts cleanly
-    void bar.offsetWidth;
-    hero.classList.remove('paused');
-    if (!paused) bar.style.width = '100%';
-  }
-  function tick() { setActive(idx + 1); }
-  function start() {
-    stop();
-    paused = false;
-    if (bar) bar.style.width = '100%';
-    timer = setInterval(tick, interval);
-  }
-  function stop() {
-    if (timer) { clearInterval(timer); timer = null; }
-    paused = true;
-    if (bar) {
-      // freeze the bar where it is (no transition)
-      const computed = getComputedStyle(bar).width;
-      hero.classList.add('paused');
-      bar.style.width = computed;
-    }
-  }
-
-  prev.addEventListener('click', e => { e.stopPropagation(); setActive(idx - 1); start(); });
-  next.addEventListener('click', e => { e.stopPropagation(); setActive(idx + 1); start(); });
-  dots.forEach((d, i) => d.addEventListener('click', e => { e.stopPropagation(); setActive(i); start(); }));
-
-  // Pause on hover, resume on leave (desktop). Touch users get autoplay always.
-  hero.addEventListener('mouseenter', stop);
-  hero.addEventListener('mouseleave', start);
-
-  // Click slide → open the existing lightbox at that image
-  hero.addEventListener('click', e => {
-    if (e.target.closest('.gallery-hero-arrow') || e.target.closest('.gallery-hero-dot')) return;
-    const slide = slides[idx];
-    if (!slide) return;
-    const img = slide.querySelector('img');
-    if (!img) return;
-    // Reuse the existing lightbox machinery — slides are DOM nodes with imgs inside,
-    // which is exactly what showLightboxImage() expects.
-    currentItems = slides;
+  marquee.addEventListener('click', e => {
+    const item = e.target.closest('.gallery-hero-slide-item');
+    if (!item) return;
+    const idx = parseInt(item.dataset.idx || '0', 10);
+    currentItems = uniqueItems;
     currentIndex = idx;
     showLightboxImage();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   });
-
-  // Pause autoplay when the carousel scrolls out of view
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => entry.isIntersecting ? start() : stop());
-    }, { threshold: 0.25 });
-    io.observe(hero);
-  } else {
-    start();
-  }
 })();
 </script>
 
