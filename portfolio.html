@@ -51,8 +51,14 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 .gallery-hero-marquee::before, .gallery-hero-marquee::after { content: ""; position: absolute; top: 0; bottom: 36px; width: 80px; z-index: 2; pointer-events: none; }
 .gallery-hero-marquee::before { left: 0; background: linear-gradient(to right, #0d0d0d, transparent); }
 .gallery-hero-marquee::after { right: 0; background: linear-gradient(to left, #0d0d0d, transparent); }
-.gallery-hero-track { display: flex; width: max-content; animation: hero-scroll 60s linear infinite; will-change: transform; }
+.gallery-hero-track { display: flex; width: max-content; animation: hero-scroll 60s linear infinite; animation-delay: 3.5s; will-change: transform; }
 .gallery-hero-slide-item { flex: 0 0 420px; margin-right: 12px; aspect-ratio: 4 / 5; position: relative; overflow: hidden; cursor: pointer; background: #000; }
+.gallery-hero-nav { position: absolute; top: calc(50% - 18px); transform: translateY(-50%); z-index: 3; width: 46px; height: 46px; border-radius: 50%; border: none; background: rgba(0,0,0,0.6); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s; padding: 0; }
+.gallery-hero-nav:hover { background: rgba(176,16,32,0.9); transform: translateY(-50%) scale(1.05); }
+.gallery-hero-nav:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.gallery-hero-nav svg { width: 22px; height: 22px; display: block; }
+.gallery-hero-prev { left: 18px; }
+.gallery-hero-next { right: 18px; }
 .gallery-hero-slide-item img { width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.10) brightness(1.04) saturate(1.18); transition: filter 0.3s, transform 0.5s; }
 .gallery-hero-slide-item:hover img { filter: contrast(1.14) brightness(1.07) saturate(1.22); transform: scale(1.04); }
 .gallery-hero-caption { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px 24px; background: linear-gradient(transparent 55%, rgba(0,0,0,0.85)); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
@@ -80,6 +86,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 @media (max-width: 600px) {
   .gallery-hero-slide-item { flex: 0 0 260px; }
   .gallery-hero-track { animation-duration: 110s; }
+  .gallery-hero-nav { width: 38px; height: 38px; }
+  .gallery-hero-nav svg { width: 18px; height: 18px; }
+  .gallery-hero-prev { left: 8px; }
+  .gallery-hero-next { right: 8px; }
 }
 
 .filter-bar { background: #0d0d0d; border-bottom: 1px solid #1a1a1a; padding: 20px 80px; display: flex; gap: 10px; flex-wrap: wrap; position: sticky; top: 130px; z-index: 100; }
@@ -268,7 +278,7 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
       <div class="featured-tag">The Gallery</div>
       <div class="featured-title">Browse The Work</div>
     </div>
-    <div class="featured-sub">A continuous look at recent builds. Hover to pause, click any photo to open it full-size.</div>
+    <div class="featured-sub">A continuous look at recent builds. Use the arrows to step through, or click any photo to open it full-size.</div>
   </div>
 </div>
 <div class="gallery-hero-marquee" id="galleryMarquee" aria-label="Recent work showcase">
@@ -300,6 +310,8 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
     <div class="gallery-hero-slide-item" data-idx="10" aria-hidden="true"><img src="photos/hero-11-commercial.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
     <div class="gallery-hero-slide-item" data-idx="11" aria-hidden="true"><img src="photos/hero-12-outdoor-deck.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
   </div>
+  <button class="gallery-hero-nav gallery-hero-prev" type="button" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg></button>
+  <button class="gallery-hero-nav gallery-hero-next" type="button" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4L13.2 12z"/></svg></button>
 </div>
 
 <!-- PROJECT WALKTHROUGHS -->
@@ -519,16 +531,18 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightbox({target: document.getElementById('lightbox')});
 });
 
-// ─── Gallery hero marquee — click-to-open-lightbox ───
+// ─── Gallery hero marquee — click-to-open-lightbox + prev/next nudge ───
 (function () {
   const marquee = document.getElementById('galleryMarquee');
   if (!marquee) return;
+  const track = marquee.querySelector('.gallery-hero-track');
   // The marquee track contains 24 items (12 unique × 2 copies for seamless loop).
   // Use only the first 12 as the canonical list passed to the lightbox.
   const allItems = Array.from(marquee.querySelectorAll('.gallery-hero-slide-item'));
   const uniqueItems = allItems.slice(0, 12);
 
   marquee.addEventListener('click', e => {
+    if (e.target.closest('.gallery-hero-nav')) return; // arrow clicks handled below
     const item = e.target.closest('.gallery-hero-slide-item');
     if (!item) return;
     const idx = parseInt(item.dataset.idx || '0', 10);
@@ -538,6 +552,83 @@ document.addEventListener('keydown', e => {
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   });
+
+  // ─── Prev / Next manual navigation ───
+  // Pauses the CSS auto-scroll, shifts the track by one slide width,
+  // then resumes auto-scroll from the current position after a short pause.
+  if (!track) return;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prefersReduced.matches) return; // auto-scroll disabled anyway
+
+  const RESUME_DELAY_MS = 5000;
+  let resumeTimer = null;
+
+  function getDurationSec() {
+    if (window.innerWidth <= 600) return 110;
+    if (window.innerWidth <= 1280) return 90;
+    return 60;
+  }
+  function getSlideStep() {
+    const first = allItems[0];
+    if (!first) return 432;
+    const cs = getComputedStyle(first);
+    const mr = parseFloat(cs.marginRight) || 12;
+    return first.offsetWidth + mr;
+  }
+  function getCycleWidth() {
+    // Half the track width = one full cycle of unique slides
+    return getSlideStep() * (allItems.length / 2);
+  }
+  function getCurrentX() {
+    const cs = getComputedStyle(track);
+    if (cs.transform === 'none') return 0;
+    // matrix(a, b, c, d, tx, ty)
+    const m = cs.transform.match(/matrix.*\((.+)\)/);
+    if (!m) return 0;
+    const parts = m[1].split(',').map(s => parseFloat(s.trim()));
+    return parts[4] || 0;
+  }
+  function normalize(x, cycle) {
+    while (x > 0) x -= cycle;
+    while (x <= -cycle) x += cycle;
+    return x;
+  }
+  function nudge(direction) {
+    const step = getSlideStep();
+    const cycle = getCycleWidth();
+    let currentX = getCurrentX();
+    // Freeze at current position first
+    currentX = normalize(currentX, cycle);
+    track.style.animation = 'none';
+    track.style.transform = `translateX(${currentX}px)`;
+    // Force reflow so the next inline transform animates from current position
+    void track.offsetWidth;
+    // Apply a brief transition for the nudge itself
+    track.style.transition = 'transform 0.45s ease-out';
+    const targetX = normalize(currentX + (-direction * step), cycle);
+    track.style.transform = `translateX(${targetX}px)`;
+
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => resume(), RESUME_DELAY_MS);
+  }
+  function resume() {
+    const cycle = getCycleWidth();
+    const currentX = normalize(getCurrentX(), cycle);
+    const progress = (-currentX) / cycle; // 0..1
+    const duration = getDurationSec();
+    // Strip inline overrides so the CSS keyframe animation drives the track again
+    track.style.transition = '';
+    track.style.transform = '';
+    track.style.animation = '';
+    void track.offsetWidth; // reflow
+    // Resume from current position by setting a negative animation-delay
+    track.style.animationDelay = `-${(progress * duration).toFixed(3)}s`;
+  }
+
+  const prevBtn = marquee.querySelector('.gallery-hero-prev');
+  const nextBtn = marquee.querySelector('.gallery-hero-next');
+  if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); nudge(-1); });
+  if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); nudge(1); });
 })();
 </script>
 
