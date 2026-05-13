@@ -342,7 +342,10 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 
 <div class="video-lightbox" id="videoLightbox" onclick="closeVideo(event)">
   <button class="video-close" onclick="closeVideo()" aria-label="Close">&times;</button>
-  <video id="videoPlayer" controls playsinline></video>
+  <div class="video-lightbox-stage">
+    <video class="video-bg-fill" id="videoBgFill" autoplay loop muted playsinline aria-hidden="true"></video>
+    <video id="videoPlayer" controls playsinline></video>
+  </div>
 </div>
 
 
@@ -686,16 +689,31 @@ document.addEventListener('keydown', e => {
   function openVideo(src) {
     var lb = document.getElementById('videoLightbox');
     var v = document.getElementById('videoPlayer');
+    var bg = document.getElementById('videoBgFill');
     v.src = src;
+    if (bg) bg.src = src;
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
     v.play().catch(function(){});
+    if (bg) bg.play().catch(function(){});
+    // Keep the blurred background loosely in sync with the foreground.
+    if (bg && !v._bgSyncBound) {
+      v._bgSyncBound = true;
+      v.addEventListener('timeupdate', function(){
+        if (Math.abs(bg.currentTime - v.currentTime) > 0.3) bg.currentTime = v.currentTime;
+      });
+      v.addEventListener('seeking', function(){ bg.currentTime = v.currentTime; });
+      v.addEventListener('play', function(){ bg.play().catch(function(){}); });
+      v.addEventListener('pause', function(){ bg.pause(); });
+    }
   }
   window.closeVideo = function(e) {
     if (e && e.target && !e.target.matches('.video-lightbox, .video-close')) return;
     var lb = document.getElementById('videoLightbox');
     var v = document.getElementById('videoPlayer');
+    var bg = document.getElementById('videoBgFill');
     v.pause(); v.src = '';
+    if (bg) { bg.pause(); bg.src = ''; }
     lb.classList.remove('open');
     document.body.style.overflow = '';
   };
