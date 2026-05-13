@@ -51,10 +51,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 .gallery-hero-marquee::before, .gallery-hero-marquee::after { content: ""; position: absolute; top: 0; bottom: 36px; width: 80px; z-index: 2; pointer-events: none; }
 .gallery-hero-marquee::before { left: 0; background: linear-gradient(to right, #0d0d0d, transparent); }
 .gallery-hero-marquee::after { right: 0; background: linear-gradient(to left, #0d0d0d, transparent); }
-.gallery-hero-track { display: flex; width: max-content; animation: hero-scroll 60s linear infinite; animation-delay: 3.5s; will-change: transform; }
+.gallery-hero-track { display: flex; width: max-content; will-change: transform; }
 .gallery-hero-slide-item { flex: 0 0 420px; margin-right: 12px; aspect-ratio: 4 / 5; position: relative; overflow: hidden; cursor: pointer; background: #000; }
-.gallery-hero-nav { position: absolute; top: calc(50% - 18px); transform: translateY(-50%); z-index: 3; width: 46px; height: 46px; border-radius: 50%; border: none; background: rgba(0,0,0,0.6); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s; padding: 0; }
-.gallery-hero-nav:hover { background: rgba(176,16,32,0.9); transform: translateY(-50%) scale(1.05); }
+.gallery-hero-slide-item:last-child { margin-right: 0; }
+.gallery-hero-nav { position: absolute; top: calc(50% - 18px); transform: translateY(-50%); z-index: 3; width: 46px; height: 46px; border-radius: 50%; border: none; background: rgba(0,0,0,0.6); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s, opacity 0.2s; padding: 0; }
+.gallery-hero-nav:hover:not(:disabled) { background: rgba(176,16,32,0.9); transform: translateY(-50%) scale(1.05); }
+.gallery-hero-nav:disabled { opacity: 0.25; cursor: not-allowed; }
 .gallery-hero-nav:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .gallery-hero-nav svg { width: 22px; height: 22px; display: block; }
 .gallery-hero-prev { left: 18px; }
@@ -66,14 +68,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
 .gallery-hero-cat { display: block; font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 3px; color: #b01020; text-transform: uppercase; margin-bottom: 8px; }
 .gallery-hero-title { display: block; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px; color: #fff; text-transform: uppercase; line-height: 1.25; }
 
-@keyframes hero-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .gallery-hero-track { animation: none; }
-}
-
 @media (max-width: 1280px) {
   .gallery-hero-section { padding: 36px 24px 16px; }
   .gallery-hero-header { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -81,11 +75,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 74px; b
   .gallery-hero-slide-item { flex: 0 0 320px; margin-right: 10px; }
   .gallery-hero-marquee::before, .gallery-hero-marquee::after { width: 40px; }
   .gallery-hero-title { font-size: 14px; }
-  .gallery-hero-track { animation-duration: 90s; }
 }
 @media (max-width: 600px) {
   .gallery-hero-slide-item { flex: 0 0 260px; }
-  .gallery-hero-track { animation-duration: 110s; }
   .gallery-hero-nav { width: 38px; height: 38px; }
   .gallery-hero-nav svg { width: 18px; height: 18px; }
   .gallery-hero-prev { left: 8px; }
@@ -344,19 +336,6 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
     <div class="gallery-hero-slide-item" data-idx="9"><img src="photos/hero-10-white-marble.jpg" alt="White marble walk-in shower with pebble floor"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">White Marble · Pebble Floor</span></div></div>
     <div class="gallery-hero-slide-item" data-idx="10"><img src="photos/hero-11-commercial.jpg" alt="Commercial build with custom finishes"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
     <div class="gallery-hero-slide-item" data-idx="11"><img src="photos/hero-12-outdoor-deck.jpg" alt="Custom deck with stone detail"><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
-    <!-- Duplicate copy for seamless loop -->
-    <div class="gallery-hero-slide-item" data-idx="0" aria-hidden="true"><img src="photos/hero-1-newconstruction.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">New Construction</span><span class="gallery-hero-title">Custom Ground-Up Home</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="1" aria-hidden="true"><img src="photos/hero-2-kitchen.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Kitchen</span><span class="gallery-hero-title">Vaulted Beam · Marble Island</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="2" aria-hidden="true"><img src="photos/hero-3-calacatta-tub.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Calacatta · Freestanding Tub</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="3" aria-hidden="true"><img src="photos/hero-4-living.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Living</span><span class="gallery-hero-title">Vaulted Beam · Custom Fireplace</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="4" aria-hidden="true"><img src="photos/hero-5-herringbone.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Carrara · Herringbone Detail</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="5" aria-hidden="true"><img src="photos/hero-6-outdoor.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Lounge · Stone Wall</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="6" aria-hidden="true"><img src="photos/hero-7-frameless-glass.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Frameless Glass · Hexagon Tile</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="7" aria-hidden="true"><img src="photos/hero-8-slate-wetroom.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">Slate Wet Room · Cedar Bench</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="8" aria-hidden="true"><img src="photos/hero-9-outdoor-kitchen.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Outdoor Kitchen · Stone Surround</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="9" aria-hidden="true"><img src="photos/hero-10-white-marble.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Bathroom</span><span class="gallery-hero-title">White Marble · Pebble Floor</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="10" aria-hidden="true"><img src="photos/hero-11-commercial.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Commercial</span><span class="gallery-hero-title">Commercial Build · Custom Finishes</span></div></div>
-    <div class="gallery-hero-slide-item" data-idx="11" aria-hidden="true"><img src="photos/hero-12-outdoor-deck.jpg" alt=""><div class="gallery-hero-caption"><span class="gallery-hero-cat">Outdoor Living</span><span class="gallery-hero-title">Custom Deck · Stone Detail</span></div></div>
   </div>
   <button class="gallery-hero-nav gallery-hero-prev" type="button" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg></button>
   <button class="gallery-hero-nav gallery-hero-next" type="button" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4L13.2 12z"/></svg></button>
@@ -531,104 +510,121 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightbox({target: document.getElementById('lightbox')});
 });
 
-// ─── Gallery hero marquee — click-to-open-lightbox + prev/next nudge ───
+// ─── Gallery hero carousel — bounded ping-pong auto-scroll + prev/next ───
 (function () {
   const marquee = document.getElementById('galleryMarquee');
   if (!marquee) return;
   const track = marquee.querySelector('.gallery-hero-track');
-  // The marquee track contains 24 items (12 unique × 2 copies for seamless loop).
-  // Use only the first 12 as the canonical list passed to the lightbox.
-  const allItems = Array.from(marquee.querySelectorAll('.gallery-hero-slide-item'));
-  const uniqueItems = allItems.slice(0, 12);
+  if (!track) return;
+  const items = Array.from(track.querySelectorAll('.gallery-hero-slide-item'));
+  const prevBtn = marquee.querySelector('.gallery-hero-prev');
+  const nextBtn = marquee.querySelector('.gallery-hero-next');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Click any photo → open the lightbox.
   marquee.addEventListener('click', e => {
-    if (e.target.closest('.gallery-hero-nav')) return; // arrow clicks handled below
+    if (e.target.closest('.gallery-hero-nav')) return;
     const item = e.target.closest('.gallery-hero-slide-item');
     if (!item) return;
     const idx = parseInt(item.dataset.idx || '0', 10);
-    currentItems = uniqueItems;
+    currentItems = items;
     currentIndex = idx;
     showLightboxImage();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   });
 
-  // ─── Prev / Next manual navigation ───
-  // Pauses the CSS auto-scroll, shifts the track by one slide width,
-  // then resumes auto-scroll from the current position after a short pause.
-  if (!track) return;
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (prefersReduced.matches) return; // auto-scroll disabled anyway
-
-  const RESUME_DELAY_MS = 5000;
+  // Bounded scroller: position = how far the track has slid left (0 = first photo at
+  // left edge; max = last photo aligned with the right edge). Auto-scrolls forward
+  // until it hits the last photo, then ping-pongs back to the first photo.
+  let position = 0;
+  let direction = 1;          // +1 forward (toward last photo), -1 reverse
+  let paused = true;          // starts paused for INITIAL_DELAY_MS
+  let lastTs = null;
   let resumeTimer = null;
+  const INITIAL_DELAY_MS = 3500;
+  const RESUME_DELAY_MS = 5000;
+  const TRIP_DURATION_SEC = 28; // time to traverse start → end at auto-scroll speed
 
-  function getDurationSec() {
-    if (window.innerWidth <= 600) return 110;
-    if (window.innerWidth <= 1280) return 90;
-    return 60;
-  }
   function getSlideStep() {
-    const first = allItems[0];
-    if (!first) return 432;
-    const cs = getComputedStyle(first);
-    const mr = parseFloat(cs.marginRight) || 12;
-    return first.offsetWidth + mr;
+    if (!items[0]) return 432;
+    const cs = getComputedStyle(items[0]);
+    const mr = parseFloat(cs.marginRight) || 0;
+    return items[0].offsetWidth + mr;
   }
-  function getCycleWidth() {
-    // Half the track width = one full cycle of unique slides
-    return getSlideStep() * (allItems.length / 2);
+  function getMaxScroll() {
+    // scrollWidth includes no trailing margin because the last item has margin-right:0
+    const trackW = track.scrollWidth;
+    const viewportW = marquee.clientWidth;
+    return Math.max(0, trackW - viewportW);
   }
-  function getCurrentX() {
-    const cs = getComputedStyle(track);
-    if (cs.transform === 'none') return 0;
-    // matrix(a, b, c, d, tx, ty)
-    const m = cs.transform.match(/matrix.*\((.+)\)/);
-    if (!m) return 0;
-    const parts = m[1].split(',').map(s => parseFloat(s.trim()));
-    return parts[4] || 0;
+  function applyTransform() {
+    track.style.transform = `translateX(${-position}px)`;
   }
-  function normalize(x, cycle) {
-    while (x > 0) x -= cycle;
-    while (x <= -cycle) x += cycle;
-    return x;
+  function updateButtons() {
+    const max = getMaxScroll();
+    if (prevBtn) prevBtn.disabled = position <= 0.5;
+    if (nextBtn) nextBtn.disabled = position >= max - 0.5;
   }
-  function nudge(direction) {
+  function tick(t) {
+    if (lastTs === null) lastTs = t;
+    const dt = (t - lastTs) / 1000;
+    lastTs = t;
+    if (!paused) {
+      const max = getMaxScroll();
+      const speed = max > 0 ? max / TRIP_DURATION_SEC : 0;
+      position += direction * speed * dt;
+      if (position >= max) { position = max; direction = -1; }
+      else if (position <= 0) { position = 0; direction = 1; }
+      applyTransform();
+      updateButtons();
+    }
+    requestAnimationFrame(tick);
+  }
+  function navigate(dir) {
+    const max = getMaxScroll();
     const step = getSlideStep();
-    const cycle = getCycleWidth();
-    let currentX = getCurrentX();
-    // Freeze at current position first
-    currentX = normalize(currentX, cycle);
-    track.style.animation = 'none';
-    track.style.transform = `translateX(${currentX}px)`;
-    // Force reflow so the next inline transform animates from current position
-    void track.offsetWidth;
-    // Apply a brief transition for the nudge itself
+    let target;
+    if (dir > 0) {
+      if (position >= max - 0.5) return; // at last photo, do nothing
+      const nextSlideIdx = Math.floor(position / step) + 1;
+      target = Math.min(nextSlideIdx * step, max);
+    } else {
+      if (position <= 0.5) return; // at first photo, do nothing
+      const prevSlideIdx = Math.ceil(position / step) - 1;
+      target = Math.max(prevSlideIdx * step, 0);
+    }
+    paused = true;
     track.style.transition = 'transform 0.45s ease-out';
-    const targetX = normalize(currentX + (-direction * step), cycle);
-    track.style.transform = `translateX(${targetX}px)`;
-
+    position = target;
+    direction = dir > 0 ? 1 : -1;
+    applyTransform();
+    updateButtons();
     if (resumeTimer) clearTimeout(resumeTimer);
-    resumeTimer = setTimeout(() => resume(), RESUME_DELAY_MS);
-  }
-  function resume() {
-    const cycle = getCycleWidth();
-    const currentX = normalize(getCurrentX(), cycle);
-    const progress = (-currentX) / cycle; // 0..1
-    const duration = getDurationSec();
-    // Strip inline overrides so the CSS keyframe animation drives the track again
-    track.style.transition = '';
-    track.style.transform = '';
-    track.style.animation = '';
-    void track.offsetWidth; // reflow
-    // Resume from current position by setting a negative animation-delay
-    track.style.animationDelay = `-${(progress * duration).toFixed(3)}s`;
+    resumeTimer = setTimeout(() => {
+      track.style.transition = '';
+      paused = false;
+    }, RESUME_DELAY_MS);
   }
 
-  const prevBtn = marquee.querySelector('.gallery-hero-prev');
-  const nextBtn = marquee.querySelector('.gallery-hero-next');
-  if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); nudge(-1); });
-  if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); nudge(1); });
+  if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); navigate(-1); });
+  if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); navigate(1); });
+
+  window.addEventListener('resize', () => {
+    const max = getMaxScroll();
+    if (position > max) position = max;
+    applyTransform();
+    updateButtons();
+  });
+
+  applyTransform();
+  updateButtons();
+  if (!prefersReduced) {
+    setTimeout(() => { paused = false; }, INITIAL_DELAY_MS);
+    requestAnimationFrame(tick);
+  } else {
+    updateButtons();
+  }
 })();
 </script>
 
