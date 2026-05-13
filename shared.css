@@ -112,6 +112,6 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; }
 .video-lightbox.open { display: flex; }
-.video-lightbox video { max-width: 90vw; max-height: 90vh; outline: none; }
+.video-lightbox video { height: 95vh; width: auto; max-width: 95vw; outline: none; background: #000; }
 .video-close { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 36px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 300; opacity: 0.7; transition: opacity 0.2s; }
 .video-close:hover { opacity: 1; }
