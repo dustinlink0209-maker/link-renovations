@@ -542,9 +542,12 @@ document.addEventListener('keydown', e => {
   let paused = true;          // starts paused for INITIAL_DELAY_MS
   let lastTs = null;
   let resumeTimer = null;
+  let endResetTimer = null;   // pending "snap back to first photo" timer
   const INITIAL_DELAY_MS = 3500;
   const RESUME_DELAY_MS = 5000;
   const TRIP_DURATION_SEC = 32; // time to traverse start → end at auto-scroll speed
+  const END_PAUSE_MS = 3000;    // hold at the last photo before snapping back
+  const END_FADE_MS = 350;      // fade-out / fade-in around the snap
 
   function getSlideStep() {
     if (!items[0]) return 432;
@@ -574,13 +577,42 @@ document.addEventListener('keydown', e => {
       const max = getMaxScroll();
       const speed = max > 0 ? max / TRIP_DURATION_SEC : 0;
       position += speed * dt;
-      if (position >= max) { position = max; paused = true; } // stop at end; never reverse
+      if (position >= max) {
+        position = max;
+        paused = true;
+        scheduleEndReset();   // hold for END_PAUSE_MS, then snap back to the first photo
+      }
       applyTransform();
       updateButtons();
     }
     requestAnimationFrame(tick);
   }
+  function scheduleEndReset() {
+    if (endResetTimer) clearTimeout(endResetTimer);
+    endResetTimer = setTimeout(() => {
+      endResetTimer = null;
+      // Fade out, snap to the first photo, fade back in, then resume auto-scroll.
+      track.style.transition = `opacity ${END_FADE_MS}ms ease-out`;
+      track.style.opacity = '0';
+      setTimeout(() => {
+        position = 0;
+        applyTransform();
+        updateButtons();
+        track.style.opacity = '1';
+        setTimeout(() => {
+          track.style.transition = '';
+          paused = false;
+        }, END_FADE_MS);
+      }, END_FADE_MS);
+    }, END_PAUSE_MS);
+  }
+  function cancelEndReset() {
+    if (endResetTimer) { clearTimeout(endResetTimer); endResetTimer = null; }
+    // If a fade was already in-flight, make sure the track is visible.
+    track.style.opacity = '1';
+  }
   function navigate(dir) {
+    cancelEndReset();          // user took over — don't snap back from underneath them
     const max = getMaxScroll();
     const step = getSlideStep();
     let target;
