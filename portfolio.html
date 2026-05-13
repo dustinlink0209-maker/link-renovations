@@ -535,16 +535,16 @@ document.addEventListener('keydown', e => {
   });
 
   // Bounded scroller: position = how far the track has slid left (0 = first photo at
-  // left edge; max = last photo aligned with the right edge). Auto-scrolls forward
-  // until it hits the last photo, then ping-pongs back to the first photo.
+  // left edge; max = last photo aligned with the right edge). Auto-scroll always flows
+  // right-to-left (position increases). When it reaches the last photo it stops there.
+  // The prev arrow still lets you manually go back to a photo you missed.
   let position = 0;
-  let direction = 1;          // +1 forward (toward last photo), -1 reverse
   let paused = true;          // starts paused for INITIAL_DELAY_MS
   let lastTs = null;
   let resumeTimer = null;
   const INITIAL_DELAY_MS = 3500;
   const RESUME_DELAY_MS = 5000;
-  const TRIP_DURATION_SEC = 28; // time to traverse start → end at auto-scroll speed
+  const TRIP_DURATION_SEC = 32; // time to traverse start → end at auto-scroll speed
 
   function getSlideStep() {
     if (!items[0]) return 432;
@@ -573,9 +573,8 @@ document.addEventListener('keydown', e => {
     if (!paused) {
       const max = getMaxScroll();
       const speed = max > 0 ? max / TRIP_DURATION_SEC : 0;
-      position += direction * speed * dt;
-      if (position >= max) { position = max; direction = -1; }
-      else if (position <= 0) { position = 0; direction = 1; }
+      position += speed * dt;
+      if (position >= max) { position = max; paused = true; } // stop at end; never reverse
       applyTransform();
       updateButtons();
     }
@@ -597,13 +596,13 @@ document.addEventListener('keydown', e => {
     paused = true;
     track.style.transition = 'transform 0.45s ease-out';
     position = target;
-    direction = dir > 0 ? 1 : -1;
     applyTransform();
     updateButtons();
     if (resumeTimer) clearTimeout(resumeTimer);
     resumeTimer = setTimeout(() => {
       track.style.transition = '';
-      paused = false;
+      // Only resume auto-scroll if we still have room to drift right-to-left.
+      if (position < getMaxScroll() - 0.5) paused = false;
     }, RESUME_DELAY_MS);
   }
 
