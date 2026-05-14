@@ -112,21 +112,24 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; gap: 48px; }
 .video-lightbox.open { display: flex; }
-/* Link Renovations brand mark on each side of the lightbox. When the
-   lightbox opens the two logos slide in from off-screen and lock in place
-   for the rest of the session — no continuous animation, just a one-shot
-   entrance. */
+/* Link Renovations brand mark on each side of the lightbox, math-centered in
+   the dead space between the screen edge and the video. The video is 3:4 at
+   95vh tall, so its width is 95vh * 0.75 and each side zone is
+   (100vw - that width) / 2. We center the 240px-wide logo on the midpoint
+   of its side zone — same logic regardless of viewport. The two logos slide
+   in from off-screen on lightbox open and lock in place. */
+.video-lightbox { --vid-w: calc(95vh * 0.75); --side-center: calc((100vw - var(--vid-w)) / 4); }
 .video-side-logo { display: none; position: absolute; top: 50%; width: 240px; height: auto; opacity: 0.92; pointer-events: none; z-index: 1; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.55)); }
-.video-side-logo:first-of-type  { left: 4vw; }
-.video-side-logo:nth-of-type(2) { right: 4vw; }
+.video-side-logo:first-of-type  { left:  calc(var(--side-center) - 120px); }
+.video-side-logo:nth-of-type(2) { right: calc(var(--side-center) - 120px); }
 .video-lightbox.open .video-side-logo  { display: block; animation: video-logo-slide-left 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .video-lightbox.open .video-side-logo:nth-of-type(2) { animation-name: video-logo-slide-right; }
 @keyframes video-logo-slide-left {
-  from { transform: translate(calc(-4vw - 100%), -50%); opacity: 0; }
+  from { transform: translate(-100vw, -50%); opacity: 0; }
   to   { transform: translate(0, -50%); opacity: 0.92; }
 }
 @keyframes video-logo-slide-right {
-  from { transform: translate(calc(4vw + 100%), -50%); opacity: 0; }
+  from { transform: translate(100vw, -50%); opacity: 0; }
   to   { transform: translate(0, -50%); opacity: 0.92; }
 }
 @media (prefers-reduced-motion: reduce) {
