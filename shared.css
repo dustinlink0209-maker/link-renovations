@@ -112,9 +112,10 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; }
 .video-lightbox.open { display: flex; }
-/* Portrait phone footage shown in a wide landscape frame using object-fit:cover
-   so the video fills the screen horizontally with no side dead space. The
-   trade-off is some top/bottom of each frame is cropped. */
-.video-lightbox video { width: 95vw; height: 95vh; object-fit: cover; background: #000; outline: none; box-shadow: 0 30px 80px rgba(0,0,0,0.7); display: block; }
+/* Show portrait video at its native aspect at full vertical height. No cover
+   crop and no horizontal stretch, so the source pixels arrive on screen at or
+   near 1:1 — much sharper than aggressive upscaling. Some side margin returns
+   on landscape screens; that's the trade-off for the quality bump. */
+.video-lightbox video { height: 95vh; width: auto; max-width: 95vw; background: #000; outline: none; box-shadow: 0 30px 80px rgba(0,0,0,0.7); display: block; }
 .video-close { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 36px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 300; opacity: 0.7; transition: opacity 0.2s; }
 .video-close:hover { opacity: 1; }
