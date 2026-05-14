@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Portfolio — Link Renovations</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" referrerpolicy="no-referrer" crossorigin="anonymous">
-  <link rel="stylesheet" href="shared.css?v=20260514h">
-  <link rel="stylesheet" href="mobile.css?v=20260514h">
+  <link rel="stylesheet" href="shared.css?v=20260514i">
+  <link rel="stylesheet" href="mobile.css?v=20260514i">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #0a0a0a; color: #fff; font-family: 'Open Sans', sans-serif; }
@@ -344,9 +344,11 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 
 <div class="video-lightbox" id="videoLightbox" onclick="closeVideo(event)">
   <button class="video-close" onclick="closeVideo()" aria-label="Close">&times;</button>
+  <button class="video-nav video-nav-prev" type="button" aria-label="Previous walkthrough"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg></button>
   <img class="video-side-logo" src="logo-mark-v4.png" alt="Link Renovations">
   <video id="videoPlayer" controls playsinline></video>
   <img class="video-side-logo" src="logo-mark-v4.png" alt="">
+  <button class="video-nav video-nav-next" type="button" aria-label="Next walkthrough"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4L13.2 12z"/></svg></button>
 </div>
 
 
@@ -687,29 +689,46 @@ document.addEventListener('keydown', e => {
 </div>
 <script>
 (function(){
-  function openVideo(src) {
-    var lb = document.getElementById('videoLightbox');
+  var cards = Array.from(document.querySelectorAll('.video-card'));
+  var currentIdx = -1;
+
+  function loadAt(idx) {
+    if (idx < 0 || idx >= cards.length) return;
+    currentIdx = idx;
     var v = document.getElementById('videoPlayer');
-    v.src = src;
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    v.src = cards[idx].dataset.src;
     v.play().catch(function(){});
+  }
+  function openVideo(idx) {
+    loadAt(idx);
+    document.getElementById('videoLightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
   window.closeVideo = function(e) {
     if (e && e.target && !e.target.matches('.video-lightbox, .video-close')) return;
-    var lb = document.getElementById('videoLightbox');
     var v = document.getElementById('videoPlayer');
     v.pause(); v.src = '';
-    lb.classList.remove('open');
+    document.getElementById('videoLightbox').classList.remove('open');
     document.body.style.overflow = '';
+    currentIdx = -1;
   };
-  document.querySelectorAll('.video-card').forEach(function(card){
-    card.addEventListener('click', function(){
-      openVideo(card.dataset.src);
-    });
+  function shiftVideo(dir) {
+    if (currentIdx < 0 || cards.length === 0) return;
+    var next = (currentIdx + dir + cards.length) % cards.length; // wrap around
+    loadAt(next);
+  }
+  cards.forEach(function(card, i){
+    card.addEventListener('click', function(){ openVideo(i); });
   });
+  var prevBtn = document.querySelector('.video-nav-prev');
+  var nextBtn = document.querySelector('.video-nav-next');
+  if (prevBtn) prevBtn.addEventListener('click', function(e){ e.stopPropagation(); shiftVideo(-1); });
+  if (nextBtn) nextBtn.addEventListener('click', function(e){ e.stopPropagation(); shiftVideo(1); });
   document.addEventListener('keydown', function(e){
+    if (!document.getElementById('videoLightbox').classList.contains('open')) return;
     if (e.key === 'Escape') window.closeVideo({target: document.getElementById('videoLightbox')});
+    if (e.key === 'ArrowRight') shiftVideo(1);
+    if (e.key === 'ArrowLeft') shiftVideo(-1);
   });
 })();
 </script>
