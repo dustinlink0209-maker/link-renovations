@@ -112,11 +112,9 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; }
 .video-lightbox.open { display: flex; }
-/* Cinema-style stage: portrait phone footage centered on a wide canvas, with a
-   blurred copy of the same video filling the sides so the player looks landscape
-   and prominent instead of a narrow strip in the middle of the screen. */
-.video-lightbox-stage { position: relative; width: 95vw; height: 95vh; max-width: 1920px; overflow: hidden; background: #000; box-shadow: 0 30px 80px rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; }
-.video-lightbox .video-bg-fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(38px) brightness(0.45) saturate(1.05); transform: scale(1.08); z-index: 0; pointer-events: none; outline: none; }
-.video-lightbox #videoPlayer { position: relative; z-index: 1; height: 100%; width: auto; max-width: 100%; outline: none; background: #000; box-shadow: 0 0 60px rgba(0,0,0,0.6); }
+/* Videos are pre-rendered 1920x1080 landscape with their own dark backdrop and
+   thin brand-red accent lines, so the lightbox just needs to size them as
+   large as the viewport allows. */
+.video-lightbox video { width: 95vw; max-width: 1920px; height: auto; max-height: 95vh; outline: none; background: #0a0a0a; box-shadow: 0 30px 80px rgba(0,0,0,0.7); }
 .video-close { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 36px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 300; opacity: 0.7; transition: opacity 0.2s; }
 .video-close:hover { opacity: 1; }

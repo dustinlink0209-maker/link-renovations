@@ -272,38 +272,38 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
     <div class="featured-sub">Tap any tour to step inside. Each walkthrough captures the materials, light, and craftsmanship in a way photographs can't.</div>
   </div>
   <div class="walkthroughs-grid">
-    <div class="video-card" data-src="videos/tour-master-suite-tray-bath-silent.mp4">
-      <img src="videos/tour-master-suite-tray-bath-poster.jpg" alt="">
+    <div class="video-card" data-src="videos/tour-master-suite-tray-bath-landscape.mp4">
+      <img src="videos/tour-master-suite-tray-bath-landscape-poster.jpg" alt="">
       <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="video-meta"><div class="video-cat">Master Suite</div><div class="video-label">Tray Ceiling Suite &amp; Marble Bath</div></div>
     </div>
-    <div class="video-card" data-src="videos/tour-marble-kitchen-2-silent.mp4">
-      <img src="videos/tour-marble-kitchen-2-poster.jpg" alt="">
+    <div class="video-card" data-src="videos/tour-marble-kitchen-2-landscape.mp4">
+      <img src="videos/tour-marble-kitchen-2-landscape-poster.jpg" alt="">
       <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="video-meta"><div class="video-cat">Kitchen</div><div class="video-label">Marble Island Walkthrough</div></div>
     </div>
-    <div class="video-card" data-src="videos/tour-fireplace-living-silent.mp4">
-      <img src="videos/tour-fireplace-living-poster.jpg" alt="">
+    <div class="video-card" data-src="videos/tour-fireplace-living-landscape.mp4">
+      <img src="videos/tour-fireplace-living-landscape-poster.jpg" alt="">
       <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="video-meta"><div class="video-cat">Living</div><div class="video-label">Vaulted Beam Living Room</div></div>
     </div>
-    <div class="video-card" data-src="videos/tour-coffered-ceiling-room-silent.mp4">
-      <img src="videos/tour-coffered-ceiling-room-poster.jpg" alt="">
+    <div class="video-card" data-src="videos/tour-coffered-ceiling-room-landscape.mp4">
+      <img src="videos/tour-coffered-ceiling-room-landscape-poster.jpg" alt="">
       <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="video-meta"><div class="video-cat">Living</div><div class="video-label">Coffered Ceiling Great Room</div></div>
     </div>
-    <div class="video-card" data-src="videos/tour-marble-kitchen-1-silent.mp4">
-      <img src="videos/tour-marble-kitchen-1-poster.jpg" alt="">
+    <div class="video-card" data-src="videos/tour-marble-kitchen-1-landscape.mp4">
+      <img src="videos/tour-marble-kitchen-1-landscape-poster.jpg" alt="">
       <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="video-meta"><div class="video-cat">Kitchen</div><div class="video-label">Open Kitchen &amp; Pantry</div></div>
     </div>
-    <div class="video-card" data-src="videos/tour-tray-ceiling-bedroom-silent.mp4">
-      <img src="videos/tour-tray-ceiling-bedroom-poster.jpg" alt="">
+    <div class="video-card" data-src="videos/tour-tray-ceiling-bedroom-landscape.mp4">
+      <img src="videos/tour-tray-ceiling-bedroom-landscape-poster.jpg" alt="">
       <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="video-meta"><div class="video-cat">Bedroom</div><div class="video-label">Tray Ceiling Master</div></div>
     </div>
-    <div class="video-card" data-src="videos/tour-herringbone-mudroom-silent.mp4">
-      <img src="videos/tour-herringbone-mudroom-poster.jpg" alt="">
+    <div class="video-card" data-src="videos/tour-herringbone-mudroom-landscape.mp4">
+      <img src="videos/tour-herringbone-mudroom-landscape-poster.jpg" alt="">
       <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="video-meta"><div class="video-cat">Mudroom</div><div class="video-label">Herringbone Tile Mudroom</div></div>
     </div>
@@ -344,10 +344,7 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 
 <div class="video-lightbox" id="videoLightbox" onclick="closeVideo(event)">
   <button class="video-close" onclick="closeVideo()" aria-label="Close">&times;</button>
-  <div class="video-lightbox-stage">
-    <video class="video-bg-fill" id="videoBgFill" autoplay loop muted playsinline aria-hidden="true"></video>
-    <video id="videoPlayer" controls playsinline></video>
-  </div>
+  <video id="videoPlayer" controls playsinline></video>
 </div>
 
 
@@ -691,31 +688,16 @@ document.addEventListener('keydown', e => {
   function openVideo(src) {
     var lb = document.getElementById('videoLightbox');
     var v = document.getElementById('videoPlayer');
-    var bg = document.getElementById('videoBgFill');
     v.src = src;
-    if (bg) bg.src = src;
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
     v.play().catch(function(){});
-    if (bg) bg.play().catch(function(){});
-    // Keep the blurred background loosely in sync with the foreground.
-    if (bg && !v._bgSyncBound) {
-      v._bgSyncBound = true;
-      v.addEventListener('timeupdate', function(){
-        if (Math.abs(bg.currentTime - v.currentTime) > 0.3) bg.currentTime = v.currentTime;
-      });
-      v.addEventListener('seeking', function(){ bg.currentTime = v.currentTime; });
-      v.addEventListener('play', function(){ bg.play().catch(function(){}); });
-      v.addEventListener('pause', function(){ bg.pause(); });
-    }
   }
   window.closeVideo = function(e) {
     if (e && e.target && !e.target.matches('.video-lightbox, .video-close')) return;
     var lb = document.getElementById('videoLightbox');
     var v = document.getElementById('videoPlayer');
-    var bg = document.getElementById('videoBgFill');
     v.pause(); v.src = '';
-    if (bg) { bg.pause(); bg.src = ''; }
     lb.classList.remove('open');
     document.body.style.overflow = '';
   };
