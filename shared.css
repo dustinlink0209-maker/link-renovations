@@ -112,9 +112,25 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; }
 .video-lightbox.open { display: flex; }
-/* Videos are pre-rendered 1920x1080 landscape with their own dark backdrop and
-   thin brand-red accent lines, so the lightbox just needs to size them as
-   large as the viewport allows. */
-.video-lightbox video { width: 95vw; max-width: 1920px; height: auto; max-height: 95vh; outline: none; background: #0a0a0a; box-shadow: 0 30px 80px rgba(0,0,0,0.7); }
+/* Case-study viewer: portrait phone footage on one side, project context on the
+   other. The wide landscape canvas earns its space with content, not blur. */
+.video-case-study { display: flex; align-items: center; gap: 56px; width: 95vw; max-width: 1700px; height: 95vh; padding: 24px; box-sizing: border-box; }
+.video-case-study-player { flex: 0 0 auto; height: 100%; display: flex; align-items: center; justify-content: center; }
+.video-case-study-player video { height: 100%; width: auto; max-width: 100%; outline: none; background: #000; box-shadow: 0 30px 80px rgba(0,0,0,0.65); display: block; }
+.video-case-study-info { flex: 1 1 0; min-width: 0; color: #fff; font-family: 'Open Sans', sans-serif; display: flex; flex-direction: column; gap: 20px; max-width: 540px; }
+.case-study-tag { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #b01020; }
+.case-study-title { font-family: 'Montserrat', sans-serif; font-size: 34px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; line-height: 1.1; margin: 0; color: #fff; }
+.case-study-desc { font-size: 14.5px; line-height: 1.75; color: #cfcfcf; margin: 0; font-weight: 300; }
+.case-study-section-label { font-family: 'Montserrat', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-top: 4px; }
+.case-study-materials { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; line-height: 1.7; }
+.case-study-cta { margin-top: 12px; align-self: flex-start; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #fff; background: #b01020; padding: 13px 24px; text-decoration: none; transition: background 0.2s; }
+.case-study-cta:hover { background: #c41a2c; }
+@media (max-width: 900px) {
+  .video-case-study { flex-direction: column; gap: 18px; padding: 16px; height: 95vh; }
+  .video-case-study-player { flex: 0 0 auto; width: 100%; height: 56vh; }
+  .video-case-study-info { width: 100%; gap: 12px; align-items: flex-start; max-width: none; overflow-y: auto; }
+  .case-study-title { font-size: 22px; }
+  .case-study-desc { font-size: 13px; }
+}
 .video-close { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 36px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 300; opacity: 0.7; transition: opacity 0.2s; }
 .video-close:hover { opacity: 1; }
