@@ -112,8 +112,10 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; gap: 48px; }
 .video-lightbox.open { display: flex; }
-/* Brand badges floating in the side dead-space when a walkthrough plays. */
-.video-side-logo { display: none; width: 200px; height: auto; background: #fff; padding: 14px 20px; box-sizing: border-box; box-shadow: 0 12px 36px rgba(0,0,0,0.55); flex-shrink: 0; }
+/* Link Renovations brand mark (white-on-transparent variant) floating in the
+   side dead-space while a walkthrough plays. No background card — the logo's
+   own transparency lets the dark lightbox bleed through. */
+.video-side-logo { display: none; width: 260px; height: auto; flex-shrink: 0; opacity: 0.9; filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5)); }
 .video-lightbox.open .video-side-logo { display: block; }
 @media (max-width: 1200px) {
   .video-lightbox.open .video-side-logo { display: none; }
