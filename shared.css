@@ -112,34 +112,25 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; gap: 48px; }
 .video-lightbox.open { display: flex; }
-/* Link Renovations brand mark in the side dead-space while a walkthrough
-   plays. Static position; a diagonal "shine" highlight sweeps across the
-   logo silhouette every ~7s like light catching a metal sign. The shine is
-   masked to the logo's own shape so it never spills into the dark
-   surround. Right side is offset by half the cycle so the two are out of
-   phase. */
-.video-side-logo { display: none; position: absolute; top: 50%; transform: translateY(-50%); width: 240px; height: auto; pointer-events: none; z-index: 1; line-height: 0; }
+/* Link Renovations brand mark on each side of the lightbox. When the
+   lightbox opens the two logos slide in from off-screen and lock in place
+   for the rest of the session — no continuous animation, just a one-shot
+   entrance. */
+.video-side-logo { display: none; position: absolute; top: 50%; width: 240px; height: auto; opacity: 0.92; pointer-events: none; z-index: 1; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.55)); }
 .video-side-logo:first-of-type  { left: 4vw; }
 .video-side-logo:nth-of-type(2) { right: 4vw; }
-.video-side-logo img { width: 100%; height: auto; display: block; opacity: 0.92; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.55)); }
-.video-side-logo-shine {
-  position: absolute; inset: 0;
-  background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.55) 48%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.55) 52%, transparent 62%);
-  -webkit-mask: url('logo-mark-v4.png') no-repeat center / contain;
-  mask: url('logo-mark-v4.png') no-repeat center / contain;
-  transform: translateX(-110%);
-  animation: video-logo-shine 7s ease-in-out infinite;
-  will-change: transform;
+.video-lightbox.open .video-side-logo  { display: block; animation: video-logo-slide-left 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.video-lightbox.open .video-side-logo:nth-of-type(2) { animation-name: video-logo-slide-right; }
+@keyframes video-logo-slide-left {
+  from { transform: translate(calc(-4vw - 100%), -50%); opacity: 0; }
+  to   { transform: translate(0, -50%); opacity: 0.92; }
 }
-.video-side-logo:nth-of-type(2) .video-side-logo-shine { animation-delay: -3.5s; }
-.video-lightbox.open .video-side-logo { display: block; }
-@keyframes video-logo-shine {
-  0%   { transform: translateX(-110%); }
-  55%  { transform: translateX(110%); }
-  100% { transform: translateX(110%); }
+@keyframes video-logo-slide-right {
+  from { transform: translate(calc(4vw + 100%), -50%); opacity: 0; }
+  to   { transform: translate(0, -50%); opacity: 0.92; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .video-side-logo-shine { animation: none !important; opacity: 0; }
+  .video-lightbox.open .video-side-logo { animation: none !important; transform: translateY(-50%) !important; opacity: 0.92; }
 }
 @media (max-width: 1200px) {
   .video-lightbox.open .video-side-logo { display: none; }
