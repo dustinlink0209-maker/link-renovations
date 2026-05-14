@@ -112,11 +112,33 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; gap: 48px; }
 .video-lightbox.open { display: flex; }
-/* Link Renovations brand mark (white-on-transparent variant) floating in the
-   side dead-space while a walkthrough plays. No background card — the logo's
-   own transparency lets the dark lightbox bleed through. */
-.video-side-logo { display: none; width: 260px; height: auto; flex-shrink: 0; opacity: 0.9; filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5)); }
+/* Link Renovations brand mark drifting in the side dead-space while a
+   walkthrough plays. Absolute-positioned so it doesn't disturb the flex
+   layout of the video; gentle multi-axis keyframe animation, with left/right
+   offset by half a cycle so they're never in sync. */
+.video-side-logo { display: none; position: absolute; top: 50%; width: 240px; height: auto; opacity: 0.9; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.55)); pointer-events: none; z-index: 1; will-change: transform; }
+.video-side-logo:first-of-type  { left: 4vw;  animation: video-logo-float-left  14s ease-in-out infinite; }
+.video-side-logo:nth-of-type(2) { right: 4vw; animation: video-logo-float-right 14s ease-in-out infinite -7s; }
 .video-lightbox.open .video-side-logo { display: block; }
+@keyframes video-logo-float-left {
+  0%   { transform: translate(0, -50%); }
+  20%  { transform: translate(-12px, calc(-50% - 130px)); }
+  40%  { transform: translate(10px,  calc(-50% - 55px)); }
+  60%  { transform: translate(-6px,  calc(-50% + 70px)); }
+  80%  { transform: translate(16px,  calc(-50% + 130px)); }
+  100% { transform: translate(0, -50%); }
+}
+@keyframes video-logo-float-right {
+  0%   { transform: translate(0, -50%); }
+  20%  { transform: translate(12px,  calc(-50% - 100px)); }
+  40%  { transform: translate(-8px,  calc(-50% - 60px)); }
+  60%  { transform: translate(10px,  calc(-50% + 90px)); }
+  80%  { transform: translate(-14px, calc(-50% + 130px)); }
+  100% { transform: translate(0, -50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .video-side-logo { animation: none !important; transform: translateY(-50%) !important; }
+}
 @media (max-width: 1200px) {
   .video-lightbox.open .video-side-logo { display: none; }
 }
