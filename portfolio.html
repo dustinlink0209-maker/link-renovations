@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Portfolio — Link Renovations</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" referrerpolicy="no-referrer" crossorigin="anonymous">
-  <link rel="stylesheet" href="shared.css?v=20260514j">
-  <link rel="stylesheet" href="mobile.css?v=20260514j">
+  <link rel="stylesheet" href="shared.css?v=20260514k">
+  <link rel="stylesheet" href="mobile.css?v=20260514k">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #0a0a0a; color: #fff; font-family: 'Open Sans', sans-serif; }
@@ -345,9 +345,9 @@ footer { background: #060606; padding: 32px 80px; display: flex; justify-content
 <div class="video-lightbox" id="videoLightbox" onclick="closeVideo(event)">
   <button class="video-close" onclick="closeVideo()" aria-label="Close">&times;</button>
   <button class="video-nav video-nav-prev" type="button" aria-label="Previous walkthrough"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg></button>
-  <img class="video-side-logo" src="logo-mark-v4.png" alt="Link Renovations">
+  <span class="video-side-logo" aria-label="Link Renovations"><img src="logo-mark-v4.png" alt=""><span class="video-side-logo-shine" aria-hidden="true"></span></span>
   <video id="videoPlayer" controls playsinline></video>
-  <img class="video-side-logo" src="logo-mark-v4.png" alt="">
+  <span class="video-side-logo" aria-hidden="true"><img src="logo-mark-v4.png" alt=""><span class="video-side-logo-shine"></span></span>
   <button class="video-nav video-nav-next" type="button" aria-label="Next walkthrough"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4L13.2 12z"/></svg></button>
 </div>
 

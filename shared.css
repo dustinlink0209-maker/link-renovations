@@ -112,32 +112,34 @@ body.has-section-nav .hero { padding-top: 64px; }
 
 .video-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; gap: 48px; }
 .video-lightbox.open { display: flex; }
-/* Link Renovations brand mark drifting in the side dead-space while a
-   walkthrough plays. Absolute-positioned so it doesn't disturb the flex
-   layout of the video; gentle multi-axis keyframe animation, with left/right
-   offset by half a cycle so they're never in sync. */
-.video-side-logo { display: none; position: absolute; top: 50%; width: 240px; height: auto; opacity: 0.9; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.55)); pointer-events: none; z-index: 1; will-change: transform; }
-.video-side-logo:first-of-type  { left: 4vw;  animation: video-logo-float-left  14s ease-in-out infinite; }
-.video-side-logo:nth-of-type(2) { right: 4vw; animation: video-logo-float-right 14s ease-in-out infinite -7s; }
-.video-lightbox.open .video-side-logo { display: block; }
-@keyframes video-logo-float-left {
-  0%   { transform: translate(0, -50%); }
-  20%  { transform: translate(-12px, calc(-50% - 130px)); }
-  40%  { transform: translate(10px,  calc(-50% - 55px)); }
-  60%  { transform: translate(-6px,  calc(-50% + 70px)); }
-  80%  { transform: translate(16px,  calc(-50% + 130px)); }
-  100% { transform: translate(0, -50%); }
+/* Link Renovations brand mark in the side dead-space while a walkthrough
+   plays. Static position; a diagonal "shine" highlight sweeps across the
+   logo silhouette every ~7s like light catching a metal sign. The shine is
+   masked to the logo's own shape so it never spills into the dark
+   surround. Right side is offset by half the cycle so the two are out of
+   phase. */
+.video-side-logo { display: none; position: absolute; top: 50%; transform: translateY(-50%); width: 240px; height: auto; pointer-events: none; z-index: 1; line-height: 0; }
+.video-side-logo:first-of-type  { left: 4vw; }
+.video-side-logo:nth-of-type(2) { right: 4vw; }
+.video-side-logo img { width: 100%; height: auto; display: block; opacity: 0.92; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.55)); }
+.video-side-logo-shine {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.55) 48%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.55) 52%, transparent 62%);
+  -webkit-mask: url('logo-mark-v4.png') no-repeat center / contain;
+  mask: url('logo-mark-v4.png') no-repeat center / contain;
+  transform: translateX(-110%);
+  animation: video-logo-shine 7s ease-in-out infinite;
+  will-change: transform;
 }
-@keyframes video-logo-float-right {
-  0%   { transform: translate(0, -50%); }
-  20%  { transform: translate(12px,  calc(-50% - 100px)); }
-  40%  { transform: translate(-8px,  calc(-50% - 60px)); }
-  60%  { transform: translate(10px,  calc(-50% + 90px)); }
-  80%  { transform: translate(-14px, calc(-50% + 130px)); }
-  100% { transform: translate(0, -50%); }
+.video-side-logo:nth-of-type(2) .video-side-logo-shine { animation-delay: -3.5s; }
+.video-lightbox.open .video-side-logo { display: block; }
+@keyframes video-logo-shine {
+  0%   { transform: translateX(-110%); }
+  55%  { transform: translateX(110%); }
+  100% { transform: translateX(110%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .video-side-logo { animation: none !important; transform: translateY(-50%) !important; }
+  .video-side-logo-shine { animation: none !important; opacity: 0; }
 }
 @media (max-width: 1200px) {
   .video-lightbox.open .video-side-logo { display: none; }
